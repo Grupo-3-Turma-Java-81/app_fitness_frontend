@@ -1,0 +1,23 @@
+.fundoLogin {
+  background-image: url("./src/assets/img-cadastro/pexels-photo-841130.jpeg");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: hsla(70, 99%, 49%, 0.91);
+  z-index: -1;
+}
