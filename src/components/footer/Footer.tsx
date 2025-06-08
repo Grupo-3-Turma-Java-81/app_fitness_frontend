@@ -1,5 +1,31 @@
+import { useNavigate } from "react-router-dom";
+
 function Footer() {
     const data = new Date().getFullYear();
+
+    const navigate = useNavigate();
+
+    function irParaPlanos() {
+        navigate("/home");
+
+        setTimeout(() => {
+            const anchor = document.getElementById("planos");
+            if (anchor) {
+                anchor.scrollIntoView({ behavior: "smooth" });
+            }
+        }, 100);
+    }
+
+    function irParaUnidades() {
+        navigate("/home");
+
+        setTimeout(() => {
+            const anchor = document.getElementById("unidades");
+            if (anchor) {
+                anchor.scrollIntoView({ behavior: "smooth" });
+            }
+        }, 100);
+    }
 
     return (
         <footer className="bg-black text-white py-10 px-6">
@@ -25,18 +51,35 @@ function Footer() {
                 <div className="w-full md:w-1/4">
                     <p className="font-bold text-sm mb-2">Nossas redes</p>
                     <ul className="space-y-1">
-                        <li className="hover:text-[#D7F900] cursor-pointer">Instagram</li>
-                        <li className="hover:text-[#D7F900] cursor-pointer">Code³</li>
+                        <li className="hover:text-[#D7F900] cursor-pointer">
+                            <a href="https://www.instagram.com/generationbrasil/p/DHJ98FCvJdo/" target="_blank">
+                                Instagram
+                            </a>
+                        </li>
+                        
+                        <li className="hover:text-[#D7F900] cursor-pointer">
+                            <a href="https://github.com/Grupo-3-Turma-Java-81" target="_blank">
+                                Code³
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
                 <div className="w-full md:w-1/4">
                     <p className="font-bold text-sm mb-2">Links Úteis</p>
                     <ul className="space-y-1">
-                        <li className="hover:text-[#D7F900] cursor-pointer">Sobre Nós</li>
-                        <li className="hover:text-[#D7F900] cursor-pointer">Planos</li>
-                        <li className="hover:text-[#D7F900] cursor-pointer">Personais Trainers</li>
-                        <li className="hover:text-[#D7F900] cursor-pointer">Unidades</li>
+                        <li className="hover:text-[#D7F900] cursor-pointer">
+                            <a href="/sobre-nos">Sobre Nós</a>
+                        </li>
+                        <li className="hover:text-[#D7F900] cursor-pointer">
+                            <a onClick={irParaPlanos}>Planos</a>
+                        </li>
+                        <li className="hover:text-[#D7F900] cursor-pointer">
+                            <a href="/personais-trainers">Personais Trainers</a>
+                        </li>
+                        <li className="hover:text-[#D7F900] cursor-pointer">
+                            <a onClick={irParaUnidades}>Unidades</a>
+                        </li>
                     </ul>
                 </div>
 
