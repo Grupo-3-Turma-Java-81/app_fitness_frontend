@@ -1,8 +1,9 @@
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
-import "./Cadastro.css";
 import { useNavigate } from "react-router-dom";
-import { cadastrarUsuario } from "../../services/Service";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+
+import "./Cadastro.css";
 import type { Usuario } from "../../models/Usuario";
+import { cadastrarUsuario } from "../../services/Service";
 
 function Cadastro() {
   const navigate = useNavigate();
@@ -15,9 +16,8 @@ function Cadastro() {
     nome: '',
     usuario: '',
     senha: '',
-    foto: '' ,
+    foto: '',
     tipoUsuario: ''
-
   });
 
   useEffect(() => {
@@ -42,16 +42,20 @@ function Cadastro() {
 
     if (confirmaSenha === usuario.senha && usuario.senha.length >= 8) {
       setIsLoading(true);
+      
       try {
         const { id, ...usuarioSemId } = usuario;
         await cadastrarUsuario(`/usuarios/cadastrar`, usuarioSemId, setUsuario);
+      
         alert('Usuário cadastrado com sucesso!');
       } catch (error) {
         alert('Erro ao cadastrar o usuário!');
       }
+      
       setIsLoading(false);
     } else {
       alert('Dados do usuário inconsistentes! Verifique as informações do cadastro.');
+      
       setUsuario({ ...usuario, senha: '' });
       setConfirmaSenha('');
     }
@@ -66,20 +70,22 @@ function Cadastro() {
       <div className="fundoCadastro" />
       <div className="overlay" />
       <div className="absolute top-6 right-6">
-        <div className="w-44 h-44 flex items-center justify-center">
+    
+        <div className="w-54 h-54 flex items-center justify-center">
           <img
-            src="src/assets/img-cadastro/istockphoto-1391410249-612x612.jpg"
-            alt="Logo academia"
+            src="src/assets/logo-pulso/logo-pulso-letra-colorida.png"
+            alt="Logo Pulso"
             className="w-full h-full object-contain"
           />
         </div>
       </div>
+    
       <div className="flex justify-center items-center min-h-screen">
         <form
           onSubmit={cadastrarNovoUsuario}
           className="flex justify-center items-center flex-col w-full max-w-md px-8 py-6 gap-3 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg"
         >
-          <h2 className="text-slate-900 text-5xl mb-4">Cadastrar</h2>
+          <h2 className="text-slate-900 text-5xl font-bold mb-4">Cadastrar</h2>
 
           <div className="flex flex-col w-full">
             <label htmlFor="nome" className="text-slate-600 mb-1 text-left">
@@ -169,7 +175,7 @@ function Cadastro() {
             <button
               type="button"
               style={{
-                backgroundColor: "#D7F205",
+                backgroundColor: "#808080",
                 outline: "none",
                 border: "none",
               }}
@@ -182,7 +188,7 @@ function Cadastro() {
             <button
               type="submit"
               style={{
-                backgroundColor: "#OF1300",
+                backgroundColor: "#D7F205",
                 outline: "none",
                 border: "none",
               }}

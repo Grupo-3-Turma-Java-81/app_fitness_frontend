@@ -1,8 +1,9 @@
+import { RotatingLines } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState, type ChangeEvent } from "react";
+
 import "./Login.css";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useContext, useEffect, useState, type ChangeEvent } from "react";
-import { RotatingLines } from "react-loader-spinner";
 import type UsuarioLogin from "../../models/UsuarioLogin";
 
 function Login() {
@@ -36,22 +37,26 @@ function Login() {
     <>
       <div className="fundoLogin" />
       <div className="overlay" />
+
       <div className="absolute top-6 right-6">
         <div className="w-44 h-44 flex items-center justify-center">
           <img
-            src="codigo da logo"
-            alt="Logo Projeto Verão"
+            src="src/assets/logo-pulso/logo-pulso-letra-colorida.png"
+            alt="Logo Pulso"
             className="w-full h-full object-contain"
           />
         </div>
       </div>
+      
       <div className="flex justify-center items-center min-h-screen">
         <form
           className="flex justify-center items-center flex-col w-full max-w-md px-8 py-6 gap-4 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg"
           onSubmit={login}
         >
-          <h2 className="text-slate-900 text-5xl ">Entrar</h2>
+      
+          <h2 className="text-slate-900 text-5xl font-bold">Entrar</h2>
           <div className="flex flex-col w-full">
+            
             <label htmlFor="usuario" className="text-slate-700 mb-1 text-left">
               E-mail
             </label>
@@ -66,6 +71,7 @@ function Login() {
               }
             />
           </div>
+          
           <div className="flex flex-col w-full">
             <label htmlFor="senha" className="text-slate-700 mb-1 text-left">
               Senha
@@ -81,10 +87,11 @@ function Login() {
               }
             />
           </div>
+          
           <button
             type="submit"
             style={{
-              backgroundColor: "#E4E5DE",
+              backgroundColor: "#D7F205",
               outline: "none",
               border: "none",
             }}
@@ -99,7 +106,7 @@ function Login() {
                 visible={true}
               />
             ) : (
-              <span>Entrar</span>
+              <span className="font-semibold">Entrar</span>
             )}
           </button>
 
@@ -107,7 +114,7 @@ function Login() {
             Ainda não tem uma conta?{" "}
             <Link
               to="/cadastro"
-              style={{ color: "#4A5401" }}
+              style={{ color: "#D7F205" }}
               className="hover:underline font-semibold transition-all duration-300"
             >
               Cadastre-se
