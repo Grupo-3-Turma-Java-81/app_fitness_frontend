@@ -1,12 +1,15 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthContext";
 
 import Login from "./pages/login/Login";
-import Cadastro from "./pages/cadastro/Cadastro";
-
-import Footer from "./components/footer/Footer";
+import HomeGeral from "./pages/home/Home";
+import HomeAluno from "./pages/page/PageAluno";
 import Navbar from "./components/navbar/Navbar";
-import HomeGeral from "./pages/home-publica/HomeGeral";
+import Footer from "./components/footer/Footer";
+import Cadastro from "./pages/cadastro/Cadastro";
+import FormAluno from "./components/aluno/FormAluno";
+import { AuthProvider } from "./contexts/AuthContext";
+import HomeInstrutor from "./pages/page/PageInstrutor";
+import FormTreino from "./components/treinos/form-treino/FormTreino";
 
 
 function AppContent() {
@@ -23,6 +26,11 @@ function AppContent() {
                     <Route path="/" element={< HomeGeral />} />
                     <Route path="/login" element={< Login />} />
                     <Route path="/cadastro" element={< Cadastro />} />
+                    
+                    <Route path="/page-instrutor" element={< HomeInstrutor />} />
+                    <Route path="/page-aluno" element={< HomeAluno />} />
+                    <Route path="/form-aluno" element={< FormAluno />} />
+                    <Route path="/form-treino" element={< FormTreino />} />
                 </Routes>
             </div>
 
@@ -38,7 +46,7 @@ function App() {
                 <AppContent />
 
                 <Footer />
-            
+
             </BrowserRouter>
         </AuthProvider>
     );
