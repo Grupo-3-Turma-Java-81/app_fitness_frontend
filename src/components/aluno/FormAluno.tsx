@@ -1,200 +1,96 @@
-import React, {
-    useEffect,
-    useState,
-    type ChangeEvent,
-    useContext,
-} from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import type { Aluno } from '../../models/Aluno';
-// import { AuthContext } from '../../../contexts/AuthContext';
-// import { buscar, cadastrar, atualizar } from '../../../services/Service';
+import type { Treino } from "../../models/Treino";
+import { buscar, cadastrar } from "../../services/Service";
 
-const FormAluno: React.FC = () => {
-    const navigate = useNavigate();
-    const { id } = useParams<{ id: string }>();
+export default function FormAluno() {
 
-    // const { usuario } = useContext(AuthContext);
-    // const token = usuario.token;
-
-    // console.log(token);
-
-    const [aluno, setAluno] = useState<Aluno>({
-        id: 0,
+    const [aluno, setAluno] = useState<{
+        id: number | null;
+        nome: string;
+        endereco: string;
+        telefone: string;
+        peso: number;
+        altura: number;
+        treino: Treino | null;
+    }>({
+        id: null,
         nome: '',
         endereco: '',
         telefone: '',
         peso: 0,
         altura: 0,
+        treino: null
     });
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [treinos, setTreinos] = useState<Treino[]>([]);
 
-    // useEffect(() => {
-    //     if (id) {
-    //         buscar(`/alunos/${id}`, setAluno, {
-    //             headers: {
-    //                 Authorization: usuario.token,
-    //             },
-    //         }).catch(() => alert('Erro ao carregar aluno'));
-    //     }
-    // }, [id, token]);
+    const navigate = useNavigate();
 
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-        setAluno({
-            ...aluno,
-            [e.target.name]: e.target.value,
-        });
-    }
+    const usuarioToken = localStorage.getItem("usuarioToken");
 
-    async function enviarFormulario(e: React.FormEvent<HTMLFormElement>) {
+    useEffect(() => {
+        if (usuarioToken) {
+            buscar(`/alunos/treinos/${aluno.id}`, setTreinos, {
+                headers: { Authorization: `Bearer ${usuarioToken}` }
+            });
+        }
+    }, [aluno.id, usuarioToken]);
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true);
 
-        // try {
-        //     if (id) {
-        //         await atualizar(`/alunos/${id}`, aluno, setAluno, {
-        //             headers: {
-        //                 // Authorization: usuario.token,
-        //             },
-        //         });
-        //         alert('O aluno foi atualizado!');
-        //     } else {
-        //         await cadastrar('/alunos', aluno, setAluno, {
-        //             headers: {
-        //                 // Authorization: usuario.token,
-        //             },
-        //         });
-        //         alert('Aluno cadastrado com sucesso!');
-        //     }
-        //     navigate('/listar-alunos');
-        // } catch (error) {
-        //     alert('Erro ao cadastrar aluno');
-        //     console.error(error);
-        // } finally {
-        //     setIsLoading(false);
-        // }
-    }
+        const alunoParaEnviar = {
+            ...aluno,
+            treino: aluno.treino, 
+        };
+
+        try {
+            await cadastrar("/alunos/criar", alunoParaEnviar, setAluno, {
+                headers: { Authorization: `Bearer ${usuarioToken}` }
+            });
+
+            navigate("/page-instrutor");
+        } catch (error) {
+            console.error("Erro ao cadastrar aluno:", error);
+        }
+    };
 
     return (
-        <div className="max-w-4xl mx-auto mb-6">
-            <div className="bg-white border rounded-lg shadow-sm overflow-hidden">
-                <div className="grid grid-cols-7 gap-4 px-4 py-2 text-sm font-semibold bg-yellow-300 items-center text-center">
-                    <h2 className="col-span-7 text-center text-lg font-semibold ">
-                        Cadastrar novo aluno
-                    </h2>
-                </div>
+        <div>
+            <h1>Cadastrar Aluno</h1>
 
-                <div className="p-6">
-                    <div className="grid grid-cols-2 gap-8">
-                        {/* Form Section */}
-                        <div>
-                            <form onSubmit={enviarFormulario} className="space-y-4">
-                                <div>
-                                    <label className="block text-sm">Matrícula do aluno</label>
-                                    <input
-                                        type="text"
-                                        name="nome"
-                                        value={aluno.id}
-                                        onChange={atualizarEstado}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                        required
-                                    />
-                                </div>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="nome"
+                    value={aluno.nome}
+                    onChange={(e) => setAluno({ ...aluno, nome: e.target.value })}
+                />
+                <input
+                    type="text"
+                    name="endereco"
+                    value={aluno.endereco}
+                    onChange={(e) => setAluno({ ...aluno, endereco: e.target.value })}
+                />
 
-                                <div>
-                                    <label className="block text-sm">Nome do aluno</label>
-                                    <input
-                                        type="text"
-                                        name="nome"
-                                        value={aluno.nome}
-                                        onChange={atualizarEstado}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                        required
-                                    />
-                                </div>
+                <h2>Meus Treinos</h2>
+                {treinos.map((treino, index) => (
+                    <div key={treino.id}>
+                        <p>{treino.descricao}</p>
 
-                                <div>
-                                    <label className="block text-sm">Endereço</label>
-                                    <input
-                                        type="text"
-                                        name="endereco"
-                                        value={aluno.endereco}
-                                        onChange={atualizarEstado}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                        required
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm">Telefone</label>
-                                    <input
-                                        type="text"
-                                        name="telefone"
-                                        value={aluno.telefone}
-                                        onChange={atualizarEstado}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                        required
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm">Peso</label>
-                                    <input
-                                        type="number"
-                                        name="peso"
-                                        value={aluno.peso}
-                                        onChange={atualizarEstado}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                        required
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm">Altura</label>
-                                    <input
-                                        type="number"
-                                        name="altura"
-                                        value={aluno.altura}
-                                        onChange={atualizarEstado}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                        required
-                                    />
-                                </div>
-
-                                <div className="pt-4">
-                                    <button
-                                        type="submit"
-                                        className="w-full bg-yellow-300 font-semibold py-2 px-4 rounded-lg hover:bg-yellow-400 transition duration-300 disabled:opacity-50"
-                                        disabled={isLoading}
-                                    >
-                                        {isLoading ? 'Salvando...' : id ? 'Atualizar' : 'Cadastrar'}
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                        {/* IMC Display Section */}
-                        <div className="flex flex-col items-center justify-center">
-                            <div className="text-center mb-4">
-                                <h3 className="text-lg font-semibold mb-2">Cálculo do IMC</h3>
-                                <div className="w-48 h-48 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                    <div className="text-center">
-                                        <p className="text-sm mb-1">Valor do IMC</p>
-                                        <p className="text-3xl font-bold">25.0</p>
-                                    </div>
-                                </div>
-                                <div className="text-center">
-                                    <p className="text-sm text-gray-600">Aluno está em</p>
-                                    <p className="text-lg font-semibold">SOBREPESO</p>
-                                </div>
-                            </div>
-                        </div>
+                        <input
+                            type="radio"
+                            checked={aluno.treino?.id === treino.id}
+                            onChange={() => setAluno({ ...aluno, treino: treino })}
+                        />
+                        <label>{treino.tipoTreino}</label>
                     </div>
-                </div>
-            </div>
+                ))}
+
+                <button type="submit">Cadastrar</button>
+            </form>
         </div>
     );
-};
-
-export default FormAluno;
+}

@@ -8,6 +8,6 @@ export interface Aluno {
   telefone: string;
   peso: number;
   altura: number;
-  treino?: Treino;
+  treino: Treino | null;
   usuario?: Usuario;
 }

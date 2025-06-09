@@ -1,13 +1,14 @@
-import type { Treino } from "../../../models/Treino";
+import type { Aluno } from "../../models/Aluno";
+
 
 interface Props {
-    treino: Treino;
+    aluno: Aluno;
 }
 
-function CardTreino({ treino }: Props) {
+function CardAluno({ aluno }: Props) {
     return (
         <div className="bg-white flex justify-between items-center px-4 py-3 rounded-md mb-4 shadow-md w-full max-w-lg">
-            <span className="text-lg font-medium">{treino.tipoTreino}</span>
+            <span className="text-lg font-medium">{aluno.nome}</span>
             <div className="flex gap-2">
                 <button className="bg-black text-white px-3 py-1 rounded">Editar</button>
                 <button className="bg-black text-white px-3 py-1 rounded">Deletar</button>
@@ -16,4 +17,4 @@ function CardTreino({ treino }: Props) {
     );
 }
 
-export default CardTreino;
+export default CardAluno;

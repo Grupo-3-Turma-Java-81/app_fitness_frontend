@@ -1,45 +1,41 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function Navbar() {
+    const location = useLocation();
     const navigate = useNavigate();
 
-    function irParaPlanos() {
+    const irParaPlanos = () => {
         navigate("/home");
-
         setTimeout(() => {
             const anchor = document.getElementById("planos");
-            if (anchor) {
-                anchor.scrollIntoView({ behavior: "smooth" });
-            }
+            if (anchor) anchor.scrollIntoView({ behavior: "smooth" });
         }, 100);
-    }
+    };
 
-    function irParaUnidades() {
+    const irParaUnidades = () => {
         navigate("/home");
-
         setTimeout(() => {
             const anchor = document.getElementById("unidades");
-            if (anchor) {
-                anchor.scrollIntoView({ behavior: "smooth" });
-            }
+            if (anchor) anchor.scrollIntoView({ behavior: "smooth" });
         }, 100);
-    }
+    };
 
-    return (
-        <>
-            <div className="w-full">
-                <div className="bg-[#D7F900] w-full h-[100px] flex flex-col items-center justify-center">
-                    <Link to="/">
-                        <img
-                            src="src/assets/logo-pulso/logo-pulso-letra-cinza.png"
-                            alt="Logo Pulso"
-                            className="h-40"
-                        />
-                    </Link>
-                </div>
+    const sair = () => {
+        localStorage.clear();
+        navigate("/");
+    };
 
-                <div className="bg-white w-full py-4 flex justify-center">
-                    <div className="w-full max-w-6xl flex justify-end items-center px-4 gap-6 text-lg font-medium text-black">
+    const getNavbarType = () => {
+        if (location.pathname === "/page-aluno") return "aluno";
+        if (location.pathname === "/page-instrutor") return "instrutor";
+        return "home";
+    };
+
+    const renderLinks = (tipo: string) => {
+        switch (tipo) {
+            case "home":
+                return (
+                    <>
                         <span onClick={irParaPlanos} className="cursor-pointer hover:text-[#D7F900]">Planos</span>
                         <span onClick={irParaUnidades} className="cursor-pointer hover:text-[#D7F900]">Unidades</span>
                         <Link to='/sobre-nos' className="cursor-pointer hover:text-[#D7F900]">Sobre Nós</Link>
@@ -48,12 +44,58 @@ function Navbar() {
                                 Entrar
                             </button>
                         </Link>
+                    </>
+                );
 
-                    </div>
+            case "aluno":
+                return (
+                    <>
+                        <span onClick={irParaPlanos} className="cursor-pointer hover:text-[#D7F900]">Planos</span>
+                        <span onClick={irParaUnidades} className="cursor-pointer hover:text-[#D7F900]">Unidades</span>
+                        <Link to="/page-aluno" className="cursor-pointer hover:text-[#D7F900]">Treinos</Link>
+                        <button onClick={sair} className="cursor-pointer bg-black text-white px-4 py-1 rounded hover:text-[#D7F900]">
+                            Sair
+                        </button>
+                    </>
+                );
+
+            case "instrutor":
+                return (
+                    <>
+                        <Link to="/form-aluno" className="cursor-pointer hover:text-[#D7F900]">Lista de alunos</Link>
+                        <Link to="/form-treino" className="cursor-pointer hover:text-[#D7F900]">Lista de treinos</Link>
+                        <Link to="/form-treino" className="cursor-pointer hover:text-[#D7F900]">Cadastrar funcionário</Link>
+                        <button onClick={sair} className="cursor-pointer bg-black text-white px-4 py-1 rounded hover:text-[#D7F900]">
+                            Sair
+                        </button>
+                    </>
+                );
+
+            default:
+                return null;
+        }
+    };
+
+    const navbarType = getNavbarType();
+
+    return (
+        <div className="w-full">
+            <div className="bg-[#D7F900] w-full h-[100px] flex flex-col items-center justify-center">
+                <Link to="/">
+                    <img
+                        src="src/assets/logo-pulso/logo-pulso-letra-cinza.png"
+                        alt="Logo Pulso"
+                        className="h-40"
+                    />
+                </Link>
+            </div>
+
+            <div className="bg-white w-full py-4 flex justify-center">
+                <div className="w-full max-w-6xl flex justify-end items-center px-4 gap-6 text-lg font-medium text-black">
+                    {renderLinks(navbarType)}
                 </div>
             </div>
-        </>
-
+        </div>
     );
 }
 
