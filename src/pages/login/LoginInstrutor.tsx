@@ -6,7 +6,7 @@ import "./Login.css";
 import { AuthContext } from "../../contexts/AuthContext";
 import type UsuarioLogin from "../../models/UsuarioLogin";
 
-function Login() {
+function LoginInstrutor() {
   const navigate = useNavigate();
 
   const { usuario, handleLogin, isLoading } = useContext(AuthContext);
@@ -113,7 +113,7 @@ function Login() {
           <p className="text-slate-700 mt-8">
             Ainda não tem uma conta?{" "}
             <Link
-              to="/cadastro"
+              to="/cadastro-funcionario"
               style={{ color: "#D7F205" }}
               className="hover:underline font-semibold transition-all duration-300"
             >
@@ -126,4 +126,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginInstrutor;

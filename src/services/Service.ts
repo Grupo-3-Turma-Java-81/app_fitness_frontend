@@ -35,3 +35,8 @@ export const atualizar = async (url: string, dados: Object, setDados: Function, 
 export const deletar = async (url: string, header: Object) => {
     await api.delete(url, header)
 }
+
+export const buscarPorId = async <T>(url: string, header: Object): Promise<T> => {
+    const resposta = await api.get(url, header)
+    return resposta.data
+}

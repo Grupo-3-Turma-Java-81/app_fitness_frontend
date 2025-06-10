@@ -17,12 +17,12 @@ function Cadastro() {
     usuario: '',
     senha: '',
     foto: '',
-    tipoUsuario: ''
+    tipoUsuario: 'Aluno'
   });
 
   useEffect(() => {
     if (usuario.id !== 0) {
-      navigate('/login');
+      navigate('/login-aluno');
     }
   }, [usuario]);
 
@@ -42,27 +42,27 @@ function Cadastro() {
 
     if (confirmaSenha === usuario.senha && usuario.senha.length >= 8) {
       setIsLoading(true);
-      
+
       try {
         const { id, ...usuarioSemId } = usuario;
         await cadastrarUsuario(`/usuarios/cadastrar`, usuarioSemId, setUsuario);
-      
+
         alert('Usuário cadastrado com sucesso!');
       } catch (error) {
         alert('Erro ao cadastrar o usuário!');
       }
-      
+
       setIsLoading(false);
     } else {
       alert('Dados do usuário inconsistentes! Verifique as informações do cadastro.');
-      
+
       setUsuario({ ...usuario, senha: '' });
       setConfirmaSenha('');
     }
   }
 
   function retornarLogin() {
-    navigate('/login');
+    navigate('/login-aluno');
   }
 
   return (
@@ -70,7 +70,7 @@ function Cadastro() {
       <div className="fundoCadastro" />
       <div className="overlay" />
       <div className="absolute top-6 right-6">
-    
+
         <div className="w-54 h-54 flex items-center justify-center">
           <img
             src="src/assets/logo-pulso/logo-pulso-letra-colorida.png"
@@ -79,13 +79,13 @@ function Cadastro() {
           />
         </div>
       </div>
-    
+
       <div className="flex justify-center items-center min-h-screen">
         <form
           onSubmit={cadastrarNovoUsuario}
           className="flex justify-center items-center flex-col w-full max-w-md px-8 py-6 gap-3 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg"
         >
-          <h2 className="text-slate-900 text-5xl font-bold mb-4">Cadastrar</h2>
+          <h2 className="text-slate-900 text-5xl text-center font-bold mb-4">Cadastra-se</h2>
 
           <div className="flex flex-col w-full">
             <label htmlFor="nome" className="text-slate-600 mb-1 text-left">
@@ -130,18 +130,20 @@ function Cadastro() {
           </div>
 
           <div className="flex flex-col w-full">
-            <label htmlFor="nome" className="text-slate-600 mb-1 text-left">
-              Tipo de Usuario
+            <label htmlFor="tipoUsuario" className="text-slate-600 mb-1 text-left">
+              Tipo de Usuário
             </label>
             <input
               type="text"
               id="tipoUsuario"
               name="tipoUsuario"
               value={usuario.tipoUsuario}
-              onChange={atualizarEstado}
-              className="border-2 border-slate-500 rounded-md p-2"
+              readOnly
+              disabled
+              className="border-2 border-slate-500 rounded-md p-2 bg-gray-100 text-gray-500 cursor-not-allowed"
             />
           </div>
+
 
           <div className="flex flex-col w-full">
             <label htmlFor="senha" className="text-slate-600 mb-1 text-left">

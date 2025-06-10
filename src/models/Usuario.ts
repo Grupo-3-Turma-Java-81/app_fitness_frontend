@@ -7,5 +7,5 @@ export interface Usuario {
   senha: string;
   foto?: string;
   tipoUsuario: string;
-  aluno?: Aluno[] | null;
+  aluno?: Aluno[];
 }

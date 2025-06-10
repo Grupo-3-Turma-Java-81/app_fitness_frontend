@@ -1,13 +1,16 @@
-import { type Treino } from "./Treino";
-import { type Usuario } from "./Usuario";
+import type { Usuario } from "./Usuario";
 
 export interface Aluno {
-  id: number;
+  id?: number;
   nome: string;
   endereco: string;
   telefone: string;
+  dataMatricula?: string;
   peso: number;
   altura: number;
-  treino: Treino | null;
+
   usuario?: Usuario;
+
+  imc?: number;
+  classificacaoImc?: string;
 }

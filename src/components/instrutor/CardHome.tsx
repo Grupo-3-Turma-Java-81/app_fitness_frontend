@@ -12,20 +12,11 @@ const CardHome: React.FC<CardHomeProps> = ({
     fotoUrl,
 }) => {
     return (
-        <div className="bg-white border rounded-lg shadow-sm overflow-hidden">
-            
-            <div className="grid grid-cols-7 gap-4 px-4 py-2 text-sm font-semibold bg-yellow-300 bg-slate-200 items-center text-center">
-                <h2 className="col-span-7 text-center text-lg font-semibold text-[#00070D]">
-
-                    <br></br>
-
-                </h2>
-            </div>
-
+        <div className="bg-zinc-700 hover:shadow-xl transition-all duration-300 overflow-hidden">
             <div className="p-6 flex items-start space-x-6">
                 <div className="flex flex-col items-center space-y-2">
-            
-                    <div className="w-24 h-24 rounded-full border-2 border-[#96d911] p-1">
+
+                    <div className="w-24 h-24 rounded-full border-2 border-[#D7FF00] p-1">
                         {fotoUrl ? (
                             <img
                                 src={fotoUrl}
@@ -54,7 +45,7 @@ const CardHome: React.FC<CardHomeProps> = ({
                     </div>
 
                     <span
-                        className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${status === 'ativo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${status === 'ativo' ? 'bg-[#D7FF00] text-green-800' : 'bg-red-100 text-red-800'
                             }`}
                     >
                         {status === 'ativo' ? 'Ativo' : 'Inativo'}
@@ -62,7 +53,10 @@ const CardHome: React.FC<CardHomeProps> = ({
                 </div>
 
                 <div className="flex items-center justify-start h-28 px-4">
-                    <p className=" text-lg font-semibold ">Olá, {nome || '-'}</p>
+                    <p className="text-4xl font-bold text-center mb-12 text-white relative">
+                        Olá, {nome || '-'}
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#D7FF00] mt-2"></div>
+                    </p>
                 </div>
             </div>
         </div>

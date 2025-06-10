@@ -1,8 +1,13 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext } from "react";
 
 function Navbar() {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const { handleLogout } = useContext(AuthContext)
+
 
     const irParaPlanos = () => {
         navigate("/home");
@@ -21,6 +26,8 @@ function Navbar() {
     };
 
     const sair = () => {
+        handleLogout()
+        alert('O usuário foi desconectado com sucesso!')
         localStorage.clear();
         navigate("/");
     };
@@ -28,6 +35,8 @@ function Navbar() {
     const getNavbarType = () => {
         if (location.pathname === "/page-aluno") return "aluno";
         if (location.pathname === "/page-instrutor") return "instrutor";
+        if (location.pathname.startsWith("/lista-")) return "instrutor";
+        if (location.pathname.startsWith("/cadastro-funcionario")) return "instrutor";
         return "home";
     };
 
@@ -38,6 +47,8 @@ function Navbar() {
                     <>
                         <span onClick={irParaPlanos} className="cursor-pointer hover:text-[#D7F900]">Planos</span>
                         <span onClick={irParaUnidades} className="cursor-pointer hover:text-[#D7F900]">Unidades</span>
+                        <Link to='/personais-trainers' className="cursor-pointer hover:text-[#D7F900]">Personais Trainers</Link>
+
                         <Link to='/sobre-nos' className="cursor-pointer hover:text-[#D7F900]">Sobre Nós</Link>
                         <Link to='/login'>
                             <button className="bg-black text-white px-4 py-1 rounded hover:text-[#D7F900]">
@@ -50,8 +61,6 @@ function Navbar() {
             case "aluno":
                 return (
                     <>
-                        <span onClick={irParaPlanos} className="cursor-pointer hover:text-[#D7F900]">Planos</span>
-                        <span onClick={irParaUnidades} className="cursor-pointer hover:text-[#D7F900]">Unidades</span>
                         <Link to="/page-aluno" className="cursor-pointer hover:text-[#D7F900]">Treinos</Link>
                         <button onClick={sair} className="cursor-pointer bg-black text-white px-4 py-1 rounded hover:text-[#D7F900]">
                             Sair
@@ -62,9 +71,11 @@ function Navbar() {
             case "instrutor":
                 return (
                     <>
-                        <Link to="/form-aluno" className="cursor-pointer hover:text-[#D7F900]">Lista de alunos</Link>
-                        <Link to="/form-treino" className="cursor-pointer hover:text-[#D7F900]">Lista de treinos</Link>
-                        <Link to="/form-treino" className="cursor-pointer hover:text-[#D7F900]">Cadastrar funcionário</Link>
+                        <Link to="/page-instrutor" className="cursor-pointer hover:text-[#D7F900]">Início</Link>
+
+                        <Link to="/lista-alunos" className="cursor-pointer hover:text-[#D7F900]">Lista de alunos</Link>
+                        <Link to="/lista-treinos" className="cursor-pointer hover:text-[#D7F900]">Lista de treinos</Link>
+                        <Link to="/cadastro-funcionario" className="cursor-pointer hover:text-[#D7F900]">Cadastrar funcionário</Link>
                         <button onClick={sair} className="cursor-pointer bg-black text-white px-4 py-1 rounded hover:text-[#D7F900]">
                             Sair
                         </button>

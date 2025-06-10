@@ -1,6 +1,5 @@
 import type { Aluno } from "../../models/Aluno";
 
-
 interface Props {
     aluno: Aluno;
 }

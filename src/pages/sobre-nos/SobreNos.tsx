@@ -113,12 +113,9 @@ function SobreNos() {
                                     className="w-full h-full object-cover"
                                 />
 
-                                {/* Gradient */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-800 via-transparent to-transparent"></div>
 
-                                {/* Social Icons */}
                                 <div className="absolute bottom-4 right-4 flex space-x-2 z-50">
-                                    {/* GitHub */}
                                     {equipe[currentIndex].github && (
                                         <a
                                             href={equipe[currentIndex].github}

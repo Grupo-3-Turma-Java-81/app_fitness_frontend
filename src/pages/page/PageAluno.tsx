@@ -1,60 +1,101 @@
-import { useState } from "react"
+import { useEffect, useState, useContext } from 'react';
+import { buscar } from '../../services/Service';
+import { AuthContext } from '../../contexts/AuthContext';
+import { type Treino } from '../../models/Treino';
+import { type Aluno } from '../../models/Aluno';
 
-function PageAluno() {
-    const [treinos] = useState([
-        { id: 1, nome: "Treino A", detalhes: "Detalhes do treino A", aberto: false },
-        { id: 2, nome: "Treino B", detalhes: "Detalhes do treino B", aberto: false },
-        { id: 3, nome: "Treino C", detalhes: "Detalhes do treino C", aberto: false },
-        { id: 4, nome: "Treino D", detalhes: "Detalhes do treino D", aberto: false }
-    ])
+export default function PageAluno() {
+    const [treinos, setTreinos] = useState<Treino[]>([]);
+    const [aluno, setAluno] = useState<Aluno | null>(null);
+    const [treinoAberto, setTreinoAberto] = useState<number | null>(null);
 
-    const [abertoIndex, setAbertoIndex] = useState<number | null>(null)
+    const { usuario, handleLogout } = useContext(AuthContext);
 
-    const toggleTreino = (index: number) => {
-        setAbertoIndex(prev => (prev === index ? null : index))
-    }
+    useEffect(() => {
+        if (!usuario.token) return;
+
+        buscar('/treinos/get-all', setTreinos, {
+            headers: { Authorization: usuario.token },
+        }).catch((error) => {
+            console.error('Erro ao buscar treinos:', error);
+            if (error.toString().includes('403')) handleLogout();
+        });
+
+        buscar(
+            '/alunos/get-all',
+            (listaAlunos: Aluno[]) => {
+                const alunoDoUsuario = listaAlunos.find(
+                    (a) => a.usuario?.id === usuario.id
+                );
+                if (alunoDoUsuario) setAluno(alunoDoUsuario);
+            },
+            {
+                headers: { Authorization: usuario.token },
+            }
+        ).catch((error) => {
+            console.error('Erro ao buscar alunos:', error);
+            if (error.toString().includes('403')) handleLogout();
+        });
+    }, [usuario, handleLogout]);
+
+    const treinosDoAluno = treinos.filter(
+        (treino) => treino.aluno?.id === aluno?.id
+    );
 
     return (
-        <div className="min-h-screen bg-white text-black">
-            <div className="w-full max-w-7xl mx-auto px-4">
+        <div className="p-6 space-y-8">
+            <div className="bg-black text-white flex items-center p-4 rounded">
+                <span className="ml-8 text-2xl font-bold ">Olá aluno</span>
+            </div>
 
-                <div className="bg-black text-white flex items-center px-8 py-4 gap-6 rounded-md mt-6">
-                    <div className="bg-lime-400 text-black font-bold w-20 h-20 rounded-full flex items-center justify-center text-center text-sm">
-                        Foto<br />de perfil
-                    </div>
-                    <h1 className="text-xl font-semibold">Olá Aluno</h1>
-                </div>
+            <div className="bg-gray-200 p-6 rounded shadow">
+                <h2 className="text-2xl font-bold text-center mb-6">Meus treinos</h2>
 
-                <section className="bg-gray-200 mt-6 py-8 px-4 rounded-md">
-                    <h2 className="text-2xl font-bold text-center mb-6">Meus treinos</h2>
+                {treinosDoAluno.length === 0 ? (
+                    <p className="text-center text-gray-600">
+                        Você ainda não possui treinos cadastrados.
+                    </p>
+                ) : (
+                    <ul className="flex flex-col items-center gap-4">
+                        {treinosDoAluno.map((treino) => (
+                            <li key={treino.id} className="w-full max-w-xl flex flex-col gap-2">
 
-                    <div className="w-full max-w-md mx-auto flex flex-col gap-4">
-                        {treinos.map((treino, index) => (
-                            <div key={treino.id} className="bg-white rounded shadow p-4">
-                                <div className="flex justify-between items-center">
-                                    <span className="font-semibold">{treino.nome}</span>
+                                <div className="bg-white rounded flex justify-between items-center px-6 py-3 shadow">
+                                    <span className="font-medium text-gray-800">
+                                        {treino.descricao || 'Treino sem descrição'}
+                                    </span>
                                     <button
-                                        onClick={() => toggleTreino(index)}
-                                        className="text-xl transform transition-transform hover:scale-110"
+                                        onClick={() =>
+                                            setTreinoAberto(treinoAberto === treino.id ? null : treino.id!)
+                                        }
+                                        className="text-xl"
                                     >
-                                        {abertoIndex === index ? "▲" : "▼"}
+                                        ↓
                                     </button>
                                 </div>
 
-                                {abertoIndex === index && (
-                                    <div className="mt-2 text-sm text-gray-700">
-                                        {treino.detalhes}
+                                {treinoAberto === treino.id && (
+                                    <div className="bg-white rounded px-6 py-4 shadow border border-gray-300">
+                                        <p className="mb-1">
+                                            <strong>Descrição:</strong> {treino.descricao}
+                                        </p>
+                                        <p className="mb-1">
+                                            <strong>Dia da Semana:</strong> {treino.diaSemanaTreino}
+                                        </p>
+                                        <p className="mb-1">
+                                            <strong>Tipo:</strong> {treino.tipoTreino}
+                                        </p>
+                                        <p className="mb-1">
+                                            <strong>Status:</strong> {treino.status}
+                                        </p>
                                     </div>
                                 )}
-                            </div>
+                            </li>
                         ))}
-                    </div>
-                </section>
+                    </ul>
+
+                )}
             </div>
         </div>
-
-    )
+    );
 }
-
-
-export default PageAluno;
