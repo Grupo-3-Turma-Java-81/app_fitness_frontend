@@ -2,6 +2,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
 
+import img1 from "../../assets/logo-pulso/logo-pulso-letra-cinza.png"
+
 function Navbar() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -94,7 +96,7 @@ function Navbar() {
             <div className="bg-[#D7F900] w-full h-[100px] flex flex-col items-center justify-center">
                 <Link to="/">
                     <img
-                        src="src/assets/logo-pulso/logo-pulso-letra-cinza.png"
+                        src={img1}
                         alt="Logo Pulso"
                         className="h-40"
                     />
