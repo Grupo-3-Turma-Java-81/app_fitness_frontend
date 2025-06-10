@@ -5,37 +5,37 @@ const Professores: React.FC = () => {
     {
       nome: "Ricardo Silva",
       unidade: "Unidade Paulista",
-      imagem: "src/assets/professores/professor-1.jpg",
+      imagem: "/professores/professor-1.jpg",
       especialidade: "Musculação e CrossFit"
     },
     {
       nome: "Amanda Santos",
       unidade: "Unidade Pinheiros",
-      imagem: "src/assets/professores/professora-3.jpg",
+      imagem: "/professores/professora-3.jpg",
       especialidade: "Yoga e Pilates"
     },
     {
       nome: "Carlos Oliveira",
       unidade: "Unidade Moema",
-      imagem: "src/assets/professores/professor-2.jpg",
+      imagem: "/professores/professor-2.jpg",
       especialidade: "Funcional e Boxing"
     },
     {
       nome: "Juliana Costa",
       unidade: "Unidade Vila Mariana",
-      imagem: "src/assets/professores/professora-2.jpg",
+      imagem: "/professores/professora-2.jpg",
       especialidade: "Dança e Zumba"
     },
     {
       nome: "Rafael Mendes",
       unidade: "Unidade Paulista",
-      imagem: "src/assets/professores/professor-3.jpg",
+      imagem: "/professores/professor-3.jpg",
       especialidade: "Musculação e Personal"
     },
     {
       nome: "Patricia Lima",
       unidade: "Unidade Pinheiros",
-      imagem: "src/assets/professores/professora-1.jpg",
+      imagem: "/professores/professora-1.jpg",
       especialidade: "Spinning e GAP"
     }
   ];

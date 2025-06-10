@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 import img1 from '../../assets/card-home/card-home-1.png';
 import img2 from '../../assets/card-home/card-home-2.png';
+import img3 from "../../assets/academia/equipamentos.png";
+import img5 from "../../assets/academia/vestiario.jpg";
 
 const Home: React.FC = () => {
     const settings = {
@@ -132,7 +134,7 @@ const Home: React.FC = () => {
 
                                 <div className="w-full h-56 mb-6 overflow-hidden rounded-lg relative group">
                                     <img
-                                        src="src/assets/academia/equipamentos.png"
+                                        src={img3}
                                         alt="Equipamentos Modernos"
                                         className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                                     />
@@ -151,7 +153,7 @@ const Home: React.FC = () => {
                             <div className="bg-zinc-800 w-full max-w-sm p-8 rounded-xl transform hover:scale-105 transition-all duration-500 shadow-[0_0_20px_rgba(215,255,0,0.2)] hover:shadow-[0_0_30px_rgba(215,255,0,0.4)]">
                                 <div className="w-full h-56 mb-6 overflow-hidden rounded-lg relative group">
                                     <img
-                                        src="src/assets/professores/equipe-professores.png"
+                                        src="/professores/equipe-professores.png"
                                         alt="Professores Qualificados"
                                         className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                                     />
@@ -170,7 +172,7 @@ const Home: React.FC = () => {
                             <div className="bg-zinc-800 w-full max-w-sm p-8 rounded-xl transform hover:scale-105 transition-all duration-500 shadow-[0_0_20px_rgba(215,255,0,0.2)] hover:shadow-[0_0_30px_rgba(215,255,0,0.4)]">
                                 <div className="w-full h-56 mb-6 overflow-hidden rounded-lg relative group">
                                     <img
-                                        src="src/assets/academia/vestiário.jpg"
+                                        src={img5}
                                         alt="Estrutura Completa"
                                         className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                                     />

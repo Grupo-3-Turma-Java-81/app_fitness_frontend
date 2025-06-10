@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
+import img1 from "../../assets/logo-pulso/logo-pulso-letra-colorida.png"
+
 function Footer() {
     const data = new Date().getFullYear();
 
@@ -33,7 +35,7 @@ function Footer() {
 
                 <div className="w-full md:w-1/4">
                     <img
-                        src="src/assets/logo-pulso/logo-pulso-letra-colorida.png"
+                        src={img1}
                         alt="Logo Pulso"
                         className="h-40 w-auto logo-blink"
                     />

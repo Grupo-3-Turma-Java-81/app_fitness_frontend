@@ -5,6 +5,8 @@ import "./Cadastro.css";
 import type { Usuario } from "../../models/Usuario";
 import { cadastrarUsuario } from "../../services/Service";
 
+import img1 from "../../assets/logo-pulso/logo-pulso-letra-colorida.png";
+
 function Cadastro() {
   const navigate = useNavigate();
 
@@ -73,7 +75,7 @@ function Cadastro() {
 
         <div className="w-54 h-54 flex items-center justify-center">
           <img
-            src="src/assets/logo-pulso/logo-pulso-letra-colorida.png"
+            src={img1}
             alt="Logo Pulso"
             className="w-full h-full object-contain"
           />

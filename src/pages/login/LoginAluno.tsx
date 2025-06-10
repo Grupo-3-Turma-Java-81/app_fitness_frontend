@@ -6,6 +6,8 @@ import "./Login.css";
 import { AuthContext } from "../../contexts/AuthContext";
 import type UsuarioLogin from "../../models/UsuarioLogin";
 
+import img1 from "../../assets/logo-pulso/logo-pulso-letra-colorida.png";
+
 function LoginAluno() {
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ function LoginAluno() {
       <div className="absolute top-6 right-6">
         <div className="w-44 h-44 flex items-center justify-center">
           <img
-            src="src/assets/logo-pulso/logo-pulso-letra-colorida.png"
+            src={img1}
             alt="Logo Pulso"
             className="w-full h-full object-contain"
           />

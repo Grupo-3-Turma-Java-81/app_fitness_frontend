@@ -2,7 +2,7 @@ export const equipe = [
     {
         nome: "Camila Lima",
         descricao: "QA Tester",
-        imagem: "./src/assets/equipe-code-cubo/foto-camila.png",
+        imagem: "/equipe-code-cubo/foto-camila.png",
         linkedin: "https://www.linkedin.com/in/camilalimas/",
         github: "https://github.com/camilalimas/",
         sobre: `Sou uma profissional em transição de carreira, com 12 anos de experiência no audiovisual,
@@ -13,7 +13,7 @@ export const equipe = [
     {
         nome: "João Andrade",
         descricao: "Fullstack Dev",
-        imagem: "./src/assets/equipe-code-cubo/foto-joao.jpeg",
+        imagem: "/equipe-code-cubo/foto-joao.jpeg",
         linkedin: "https://www.linkedin.com/in/joao-v-andrade/",
         github: "https://github.com/JoaoAndrade-dev",
         sobre: `Sou estudante de Engenharia da Computação e gosto de transformar ideias em soluções com
@@ -24,7 +24,7 @@ export const equipe = [
     {
         nome: "Karina Araujo",
         descricao: "Fullstack Dev",
-        imagem: "./src/assets/equipe-code-cubo/foto-karina.jpeg",
+        imagem: "/equipe-code-cubo/foto-karina.jpeg",
         linkedin: "https://www.linkedin.com/in/karina-camargo-araujo/",
         github: "https://github.com/araujokahh",
         sobre: `Sou recém-formada em Análise e Desenvolvimento de Sistemas, e em transição de carreira para a área
@@ -35,7 +35,7 @@ export const equipe = [
     {
         nome: "Luan Lazarine",
         descricao: "Fullstack Dev",
-        imagem: "./src/assets/equipe-code-cubo/foto-luan.jpg",
+        imagem: "/equipe-code-cubo/foto-luan.jpg",
         linkedin: "https://www.linkedin.com/in/luanlazarine/",
         github: "https://github.com/Lazarine1996",
         sobre: `Sou desenvolvedor com foco em soluções eficientes e escaláveis, apaixonado por tecnologia,
@@ -45,7 +45,7 @@ export const equipe = [
     {
         nome: "Pamela Oliveira",
         descricao: "Product Owner",
-        imagem: "./src/assets/equipe-code-cubo/foto-pamela.jpg",
+        imagem: "/equipe-code-cubo/foto-pamela.jpg",
         linkedin: "https://www.linkedin.com/in/pamelaoliveira14/",
         github: "https://github.com/heypamela",
         sobre: `Transformo desafios tech em soluções seguras e eficientes. Tenho experiência em Node.js,
@@ -55,7 +55,7 @@ export const equipe = [
     {
         nome: "Vitor Teles",
         descricao: "Fullstack Dev",
-        imagem: "./src/assets/equipe-code-cubo/foto-vitor.jpg",
+        imagem: "/equipe-code-cubo/foto-vitor.jpg",
         linkedin: "https://www.linkedin.com/in/vitor-gabriel-teles-/",
         github: "https://github.com/VitorGabrielTeles",
         sobre: `Sou desenvolvedor Full Stack e graduando em Ciências da Computação, com foco em criar experiências

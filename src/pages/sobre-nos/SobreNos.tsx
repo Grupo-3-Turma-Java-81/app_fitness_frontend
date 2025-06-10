@@ -2,6 +2,9 @@ import { useState } from "react";
 
 import { equipe } from "./Equipe";
 
+import img1 from "../../assets/logo-pulso/logo-pulso-fundo-cinza.png";
+import img2 from "../../assets/logo-code-cubo/code-cubo-logo.png";
+
 function SobreNos() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -34,7 +37,7 @@ function SobreNos() {
                             className="transition-transform hover:scale-105"
                         >
                             <img
-                                src="./src/assets/logo-pulso/logo-pulso-fundo-cinza.png"
+                                src={img1}
                                 alt="Logo do Pulso"
                                 className="w-64 h-64 object-contain drop-shadow-xl"
                             />
@@ -60,7 +63,7 @@ function SobreNos() {
                         <p className="font-bold text-white mb-4 text-center text-xl">Realizado por:</p>
                         <div className="flex flex-col items-center">
                             <img
-                                src="./src/assets/logo-code-cubo/code-cubo-logo.png"
+                                src={img2}
                                 alt="Logo Code-Cubo"
                                 className="h-32 object-contain filter brightness-0 invert hover:scale-105 transition-transform duration-300 mb-6"
                             />

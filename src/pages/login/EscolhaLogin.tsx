@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import "./Login.css"; // importa fundoLogin e overlay
+import "./Login.css";
+
+import img1 from "../../assets/logo-pulso/logo-pulso-letra-colorida.png";
 
 function EscolhaLogin() {
     const navigate = useNavigate();
@@ -12,7 +14,7 @@ function EscolhaLogin() {
             <div className="absolute top-6 right-6">
                 <div className="w-44 h-44 flex items-center justify-center">
                     <img
-                        src="src/assets/logo-pulso/logo-pulso-letra-colorida.png"
+                        src={img1}
                         alt="Logo Pulso"
                         className="w-full h-full object-contain"
                     />
