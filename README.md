@@ -1,54 +1,90 @@
-# React + TypeScript + Vite
+# Projeto Puwo - Aplicativo para gerenciamento de treinos!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto desenvolvido como parte do Desafio 3 de React do Projeto Integrador do curso de Fullstack da Generation Brasil, com foco em criar uma aplicação funcional para auxiliar no gerenciamento de treinos de forma individual.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 👨‍👦‍👦 Descrição do Projeto
 
-## Expanding the ESLint configuration
+O Pulso é um sistema completo para acompanhamento de rotina fitness. Ele permite o registro, visualização e atualização de treinos, além do monitoramento do progresso físico dos usuários. A aplicação oferece uma experiência simples, intuitiva e eficiente para quem busca manter o foco em seus objetivos de saúde e bem-estar.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 🎯 Objetivo
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A aplicação foi idealizada para pessoas que desejam organizar seus treinos, acompanhar sua evolução e manter uma vida saudável de forma prática. O objetivo é centralizar todas as informações sobre rotina de exercícios, medidas corporais e objetivos, promovendo disciplina, motivação e constância.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 👥 Público-alvo
+
+O público-alvo deste sistema são pessoas que praticam atividades físicas regularmente, iniciantes na academia, personal trainers e qualquer indivíduo que deseja melhorar sua qualidade de vida por meio do controle da sua rotina fitness.
+
+
+## ❗ Problemas que o projeto visa resolver:
+
+O sistema Projeto-Verão foi desenvolvido para solucionar diversos desafios enfrentados por quem treina, como:
+
+- Falta de organização nos treinos
+- Dificuldade de manter constância
+- Treinos não personalizados
+- Falta de motivação por não acompanhar resultados
+- Dificuldade de personal trainers em acompanhar alunos remotamente
+- 
+Com isso, o Projeto-Verão se propõe a ser uma ferramenta central para treinos, progresso físico e motivação pessoal.
+
+
+## 🔧 Funcionalidades (CRUD)
+
+O sistema oferece funcionalidades completas de CRUD (Create, Read, Update, Delete) para as três entidades principais.
+
+### 🧍‍♂️ Aluno
+- **Criar**: Cadastrar novo aluno  
+- **Listar**: Visualizar todos os alunos (filtro por nome ou ID)  
+- **Atualizar**: Editar informações de um aluno  
+- **Excluir**: Remover cadastro  
+
+### 🏋️‍♀️ Treino
+- **Criar**: Cadastrar novo treino  
+- **Listar**: Visualizar todos os treinos (busca por tipo ou status)  
+- **Atualizar**: Alterar informações de um treino  
+- **Excluir**: Deletar registro  
+
+### 👤 Usuário
+- **Criar**: Cadastrar novo usuário  
+- **Listar**: Visualizar todos os usuários (filtro por nome ou ID)  
+- **Atualizar**: Alterar informações de um usuário  
+- **Excluir**: Deletar registro  
+
+## 💻 Tecnologias Utilizadas
+
+| Tecnologia      | Descrição                                           |
+|-----------------|-----------------------------------------------------|
+| React           | Criação de interfaces de usuários                   |
+| TypeScript      | Adicionar tipagem estática                          |
+| Tailwind CSS    | Linguagem de estilização                            |
+| Vite            | Servidor de desenvolvimento local                   |
+| Trello          | Organização e gerenciamento das tarefas do projeto  |
+| Discord         | Plataforma de comunicação entre a equipe            |
+
+
+## 👨‍💻 Integrantes do Grupo
+
+| Nome              | Função         | GitHub                                   |
+|-------------------|----------------|-------------------------------------------|
+| Camila Lima       | Tester         | [camilalimas](https://github.com/camilalimas)|
+| João Andrade      | Desenvolvedor  | [JoaoAndrade-dev](https://github.com/JoaoAndrade-dev)|
+| Karina Camargo    | Desenvolvedora | [araujokahh](https://github.com/araujokahh)|
+| Luan Lazarine     | Desenvolvedor  | [Lazarine1996](https://github.com/Lazarine1996)|
+| Pamela Oliveira   | Product Owner  | [heypamela](https://github.com/heypamela)|
+| Vitor Teles       | Desenvolvedor  | [VitorGabrielTeles](https://github.com/VitorGabrielTeles)|
+
+
+
+📅 Projeto iniciado em: **06/06/2025**
+
+
+---
+
+## 📌 Observações
+
+Este projeto é voltado para fins educacionais e representa uma solução inicial que pode ser expandida com outras features no futuro.
+
+---
