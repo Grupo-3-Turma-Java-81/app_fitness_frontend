@@ -1,4 +1,4 @@
-# Projeto Puwo - Aplicativo para gerenciamento de treinos!
+# Projeto Pulso - Aplicativo para gerenciamento de treinos!
 
 Projeto desenvolvido como parte do Desafio 3 de React do Projeto Integrador do curso de Fullstack da Generation Brasil, com foco em criar uma aplicação funcional para auxiliar no gerenciamento de treinos de forma individual.
 
