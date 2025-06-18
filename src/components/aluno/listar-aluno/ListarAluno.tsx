@@ -2,11 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from "react";
 
 
+import { buscar } from '../../../services/Service';
 import type { Aluno } from '../../../models/Aluno';
 import { AuthContext } from '../../../contexts/AuthContext';
-import { atualizar, buscar, deletar } from '../../../services/Service';
-import ModalEditarAluno from '../ModalEditarAluno';
-import ModalConfirmarDelete from '../ModalConfirmarDelete';
 
 const ListaAlunos = () => {
     const navigate = useNavigate()
@@ -17,16 +15,6 @@ const ListaAlunos = () => {
     const [alunos, setAlunos] = useState<Aluno[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const [modalEditar, setModalEditar] = useState<{
-        id: number;
-        nome: string;
-        endereco: string;
-        telefone: string;
-        peso: number;
-        altura: number;
-    } | null>(null);
-
-    const [modalDeletar, setModalDeletar] = useState<{ id: number; nome: string } | null>(null);
 
     useEffect(() => {
         if (!token) return;
@@ -47,49 +35,6 @@ const ListaAlunos = () => {
 
         buscarAlunos();
     }, [token, handleLogout]);
-
-    const handleEditarAluno = async (
-        id: number,
-        dados: {
-            nome: string;
-            endereco: string;
-            telefone: string;
-            peso: number;
-            altura: number;
-        }
-    ) => {
-        try {
-            await atualizar(
-                `/alunos/atualizar/${id}`,
-                dados,
-                (data: Aluno) => {
-                    setAlunos((prev) =>
-                        prev.map((a) => (a.id === id ? data : a))
-                    );
-                },
-                {
-                    headers: { Authorization: token },
-                }
-            );
-            setModalEditar(null);
-        } catch (error) {
-            console.error("Erro ao editar aluno:", error);
-            alert("Erro ao editar aluno");
-        }
-    };
-
-    const handleDeletarAluno = async () => {
-        if (!modalDeletar) return;
-        try {
-            await deletar(`/alunos/deletar/${modalDeletar.id}`, {
-                headers: { Authorization: token },
-            });
-            setAlunos((prev) => prev.filter((a) => a.id !== modalDeletar.id));
-            setModalDeletar(null);
-        } catch (error) {
-            alert("Erro ao deletar aluno");
-        }
-    };
 
     return (
         <div className="bg-white min-h-screen py-4 px-4">
