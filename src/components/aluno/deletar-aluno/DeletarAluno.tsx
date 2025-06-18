@@ -2,12 +2,12 @@ import { useEffect, useState, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { buscar, deletar } from '../../../services/Service'
-import { type Treino } from '../../../models/Treino'
+import type { Aluno } from '../../../models/Aluno'
 
-function DeletarTreino() {
+function DeletarAluno() {
     const navigate = useNavigate()
     
-    const [treino, setTreino] = useState<Treino>({} as Treino)
+    const [aluno, setAluno] = useState<Aluno>({} as Aluno)
     
     const { id } = useParams<{ id: string }>()
     
@@ -23,7 +23,7 @@ function DeletarTreino() {
 
     useEffect(() => {
         if (id) {
-            buscar(`/treinos/${id}`, setTreino, {
+            buscar(`/alunos/${id}`, setAluno, {
                 headers: { Authorization: token }
             })
         }
@@ -31,33 +31,33 @@ function DeletarTreino() {
 
     async function confirmarExclusao() {
         try {
-            await deletar(`/treinos/deletar/${id}`, {
+            await deletar(`/alunos/deletar/${id}`, {
                 headers: { Authorization: token }
             })
-            alert('Treino deletado com sucesso')
-            navigate('/lista-treinos')
+            alert('Aluno deletado com sucesso')
+            navigate('/lista-alunos')
         } catch (error: any) {
             if (error.toString().includes('403')) {
                 handleLogout()
             } else {
-                alert('Erro ao deletar treino')
+                alert('Erro ao deletar aluno.')
             }
         }
     }
 
     function cancelar() {
-        navigate('/lista-treinos')
+        navigate('/lista-alunos')
     }
 
     return (
         <div className="container mx-auto flex flex-col items-center mt-8 bg-white p-6 rounded shadow max-w-md">
-            <h1 className="text-2xl mb-4 font-bold text-center">Deseja realmente deletar o treino?</h1>
+            <h1 className="text-2xl mb-4 font-bold text-center">Deseja realmente deletar o aluno?</h1>
 
             <div className="border border-gray-300 rounded p-4 w-full mb-4">
-                <p><strong>Descrição:</strong> {treino.descricao}</p>
-                <p><strong>Tipo de treino:</strong> {treino.tipoTreino}</p>
-                <p><strong>Dia da semana:</strong> {treino.diaSemanaTreino}</p>
-                <p><strong>Status:</strong> {treino.status}</p>
+                <p><strong>Nome:</strong> {aluno.nome}</p>
+                <p><strong>Endereço:</strong> {aluno.endereco}</p>
+                <p><strong>Telefone:</strong> {aluno.telefone}</p>
+
             </div>
 
             <div className="flex gap-4">
@@ -78,4 +78,4 @@ function DeletarTreino() {
     )
 }
 
-export default DeletarTreino
+export default DeletarAluno

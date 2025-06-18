@@ -11,7 +11,15 @@ function EscolhaLogin() {
             <div className="fundoLogin" />
             <div className="overlay" />
 
-            <div className="absolute top-6 right-6">
+            <div className="absolute top-6 left-0 right-0 px-6 flex justify-between items-center z-50">
+                <button
+                    onClick={() => navigate("/home")}
+                    className="ml-28 text-white text-4xl font-bold hover:scale-110 transition-transform duration-200"
+                    aria-label="Voltar"
+                >
+                    ←
+                </button>
+
                 <div className="w-44 h-44 flex items-center justify-center">
                     <img
                         src={img1}

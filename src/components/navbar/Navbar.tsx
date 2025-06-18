@@ -1,7 +1,7 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
+import { AuthContext } from "../../contexts/AuthContext";
 import img1 from "../../assets/logo-pulso/logo-pulso-letra-cinza.png"
 
 function Navbar() {
@@ -36,8 +36,15 @@ function Navbar() {
 
     const getNavbarType = () => {
         if (location.pathname === "/page-aluno") return "aluno";
+        if (location.pathname === "/outros-treinos") return "aluno";
+
         if (location.pathname === "/page-instrutor") return "instrutor";
         if (location.pathname.startsWith("/lista-")) return "instrutor";
+        if (location.pathname.startsWith("/editar-")) return "instrutor";
+        if (location.pathname.startsWith("/novo-")) return "instrutor";
+        if (location.pathname.startsWith("/deletar-")) return "instrutor";
+
+
         if (location.pathname.startsWith("/cadastro-funcionario")) return "instrutor";
         return "home";
     };
@@ -53,7 +60,7 @@ function Navbar() {
 
                         <Link to='/sobre-nos' className="cursor-pointer hover:text-[#D7F900]">Sobre Nós</Link>
                         <Link to='/login'>
-                            <button className="bg-black text-white px-4 py-1 rounded hover:text-[#D7F900]">
+                            <button className="bg-black text-white px-4 py-1 rounded cursor-pointer hover:text-[#D7F900]">
                                 Entrar
                             </button>
                         </Link>
@@ -63,7 +70,9 @@ function Navbar() {
             case "aluno":
                 return (
                     <>
-                        <Link to="/page-aluno" className="cursor-pointer hover:text-[#D7F900]">Treinos</Link>
+                        <Link to="/page-aluno" className="cursor-pointer hover:text-[#D7F900]">Início</Link>
+
+                        <Link to="/outros-treinos" className="cursor-pointer hover:text-[#D7F900]">Treinos</Link>
                         <button onClick={sair} className="cursor-pointer bg-black text-white px-4 py-1 rounded hover:text-[#D7F900]">
                             Sair
                         </button>
@@ -75,9 +84,9 @@ function Navbar() {
                     <>
                         <Link to="/page-instrutor" className="cursor-pointer hover:text-[#D7F900]">Início</Link>
 
+                        <Link to="/novo-aluno" className="cursor-pointer hover:text-[#D7F900]">Novo aluno</Link>
                         <Link to="/lista-alunos" className="cursor-pointer hover:text-[#D7F900]">Lista de alunos</Link>
                         <Link to="/lista-treinos" className="cursor-pointer hover:text-[#D7F900]">Lista de treinos</Link>
-                        <Link to="/cadastro-funcionario" className="cursor-pointer hover:text-[#D7F900]">Cadastrar funcionário</Link>
                         <button onClick={sair} className="cursor-pointer bg-black text-white px-4 py-1 rounded hover:text-[#D7F900]">
                             Sair
                         </button>

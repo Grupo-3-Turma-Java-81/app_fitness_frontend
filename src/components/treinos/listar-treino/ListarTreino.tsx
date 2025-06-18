@@ -59,13 +59,7 @@ export default function ListarTreinos() {
 
     return (
         <div className="max-w-4xl mx-auto p-4 bg-white rounded text-gray-900">
-            <h2 className="text-2xl font-bold mb-4">Lista de Treinos</h2>
-
-            {aluno && (
-                <p className="mb-4 font-semibold">
-                    Aluno: <span className="text-blue-600">{aluno.nome}</span>
-                </p>
-            )}
+            <h2 className="text-2xl font-bold mb-4 text-center">Lista de Treinos</h2>
 
             {treinos.length === 0 ? (
                 <p>Nenhum treino encontrado.</p>
@@ -89,13 +83,13 @@ export default function ListarTreinos() {
                             </div>
                             <div className="flex gap-2">
                                 <button
-                                    onClick={() => navigate(`/treinos/editar/${treino.id}`)}
+                                    onClick={() => navigate(`/editar-treino/${treino.id}`)}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
                                 >
                                     Editar
                                 </button>
                                 <button
-                                    onClick={() => navigate(`/treinos/deletar/${treino.id}`)}
+                                    onClick={() => navigate(`/deletar-treino/${treino.id}`)}
                                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
                                 >
                                     Deletar

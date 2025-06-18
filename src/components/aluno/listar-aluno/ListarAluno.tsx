@@ -1,12 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from "react";
-import { atualizar, buscar, deletar } from "../../services/Service";
 
-import type { Aluno } from "../../models/Aluno";
-import ModalEditarAluno from "./ModalEditarAluno";
-import { AuthContext } from "../../contexts/AuthContext";
-import ModalConfirmarDelete from "./ModalConfirmarDelete";
+
+import type { Aluno } from '../../../models/Aluno';
+import { AuthContext } from '../../../contexts/AuthContext';
+import { atualizar, buscar, deletar } from '../../../services/Service';
+import ModalEditarAluno from '../ModalEditarAluno';
+import ModalConfirmarDelete from '../ModalConfirmarDelete';
 
 const ListaAlunos = () => {
+    const navigate = useNavigate()
+
     const { usuario, handleLogout } = useContext(AuthContext);
     const token = usuario?.token ?? "";
 
@@ -21,6 +25,7 @@ const ListaAlunos = () => {
         peso: number;
         altura: number;
     } | null>(null);
+
     const [modalDeletar, setModalDeletar] = useState<{ id: number; nome: string } | null>(null);
 
     useEffect(() => {
@@ -55,7 +60,7 @@ const ListaAlunos = () => {
     ) => {
         try {
             await atualizar(
-                `/alunos/${id}`,
+                `/alunos/atualizar/${id}`,
                 dados,
                 (data: Aluno) => {
                     setAlunos((prev) =>
@@ -73,12 +78,10 @@ const ListaAlunos = () => {
         }
     };
 
-
-
     const handleDeletarAluno = async () => {
         if (!modalDeletar) return;
         try {
-            await deletar(`/alunos/${modalDeletar.id}`, {
+            await deletar(`/alunos/deletar/${modalDeletar.id}`, {
                 headers: { Authorization: token },
             });
             setAlunos((prev) => prev.filter((a) => a.id !== modalDeletar.id));
@@ -89,8 +92,8 @@ const ListaAlunos = () => {
     };
 
     return (
-        <div className="bg-gray-200 py-12 px-4 min-h-screen">
-            <div className="max-w-3xl mx-auto">
+        <div className="bg-white min-h-screen py-4 px-4">
+            <div className="max-w-6xl mx-auto bg-gray-200 p-8 rounded shadow">
                 <h2 className="text-2xl font-bold text-center mb-8">Lista de alunos</h2>
 
                 {loading ? (
@@ -98,66 +101,45 @@ const ListaAlunos = () => {
                 ) : alunos.length === 0 ? (
                     <p className="text-center text-gray-600">Nenhum aluno encontrado.</p>
                 ) : (
-                    <div className="space-y-4">
-                        {alunos.map((aluno, index) => (
+                    <div className="space-y-3 pl-20 pr-20">
+                        {alunos.map((aluno) => (
                             <div
                                 key={aluno.id}
-                                className="bg-white flex items-center justify-between px-6 py-4 rounded shadow"
+                                className="flex items-center justify-between bg-white px-6 py-3 rounded"
                             >
-                                <div className="flex items-center gap-6">
-                                    <span className="font-semibold">{index + 1}</span>
+                                <div className="flex items-center gap-4">
                                     <span className="text-gray-800">{aluno.nome}</span>
                                 </div>
-                                {/* <div className="flex gap-2">
+                                <div className="flex gap-2">
                                     <button
-                                        onClick={() =>
-                                            setModalEditar({
-                                                id: aluno.id!,
-                                                nome: aluno.nome,
-                                                endereco: aluno.endereco,
-                                                telefone: aluno.telefone,
-                                                peso: aluno.peso,
-                                                altura: aluno.altura,
-                                            })
-                                        }
+                                        onClick={() => navigate(`/editar-aluno/${aluno.id}`)}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
                                     >
                                         Editar
                                     </button>
-
                                     <button
-                                        onClick={() => setModalDeletar({ id: aluno.id!, nome: aluno.nome })}
-                                        className="bg-black text-white px-4 py-1 rounded hover:bg-red-600 transition"
+                                        onClick={() => navigate(`/deletar-aluno/${aluno.id}`)}
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
                                     >
                                         Deletar
                                     </button>
-                                </div> */}
+                                </div>
                             </div>
                         ))}
+
+                        <div className="flex justify-end pt-4">
+                            <button
+                                className="bg-black text-white px-4 py-2 rounded text-sm hover:bg-gray-800"
+                                onClick={() => alert("Implementar navegação")}
+                            >
+                                Próxima página
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>
-
-            {modalEditar && (
-                <ModalEditarAluno
-                    alunoId={modalEditar.id}
-                    nomeAtual={modalEditar.nome}
-                    enderecoAtual={modalEditar.endereco}
-                    telefoneAtual={modalEditar.telefone}
-                    pesoAtual={modalEditar.peso}
-                    alturaAtual={modalEditar.altura}
-                    onClose={() => setModalEditar(null)}
-                    onSave={handleEditarAluno}
-                />
-            )}
-
-            {modalDeletar && (
-                <ModalConfirmarDelete
-                    nome={modalDeletar.nome}
-                    onCancel={() => setModalDeletar(null)}
-                    onConfirm={handleDeletarAluno}
-                />
-            )}
         </div>
+
     );
 };
 

@@ -40,7 +40,15 @@ function LoginAluno() {
       <div className="fundoLogin" />
       <div className="overlay" />
 
-      <div className="absolute top-6 right-6">
+      <div className="absolute top-6 left-0 right-0 px-6 flex justify-between items-center z-50">
+        <button
+          onClick={() => navigate("/login")}
+          className="ml-28 text-white text-4xl font-bold hover:scale-110 transition-transform duration-200"
+          aria-label="Voltar"
+        >
+          ←
+        </button>
+
         <div className="w-44 h-44 flex items-center justify-center">
           <img
             src={img1}
@@ -49,16 +57,16 @@ function LoginAluno() {
           />
         </div>
       </div>
-      
+
       <div className="flex justify-center items-center min-h-screen">
         <form
           className="flex justify-center items-center flex-col w-full max-w-md px-8 py-6 gap-4 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg"
           onSubmit={login}
         >
-      
+
           <h2 className="text-slate-900 text-5xl font-bold">Entrar</h2>
           <div className="flex flex-col w-full">
-            
+
             <label htmlFor="usuario" className="text-slate-700 mb-1 text-left">
               E-mail
             </label>
@@ -73,7 +81,7 @@ function LoginAluno() {
               }
             />
           </div>
-          
+
           <div className="flex flex-col w-full">
             <label htmlFor="senha" className="text-slate-700 mb-1 text-left">
               Senha
@@ -89,11 +97,11 @@ function LoginAluno() {
               }
             />
           </div>
-          
+
           <button
             type="submit"
             style={{
-              backgroundColor: "#D7F205",
+              backgroundColor: "#B1C803",
               outline: "none",
               border: "none",
             }}
@@ -116,7 +124,7 @@ function LoginAluno() {
             Ainda não tem uma conta?{" "}
             <Link
               to="/cadastro-aluno"
-              style={{ color: "#D7F205" }}
+              style={{ color: "#0F1300" }}
               className="hover:underline font-semibold transition-all duration-300"
             >
               Cadastre-se

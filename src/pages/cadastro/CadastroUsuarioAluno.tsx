@@ -70,8 +70,8 @@ function Cadastro() {
     <>
       <div className="fundoCadastro" />
       <div className="overlay" />
+      
       <div className="absolute top-6 right-6">
-
         <div className="w-54 h-54 flex items-center justify-center">
           <img
             src={img1}
@@ -117,20 +117,6 @@ function Cadastro() {
           </div>
 
           <div className="flex flex-col w-full">
-            <label htmlFor="foto" className="text-slate-600 mb-1 text-left">
-              Foto
-            </label>
-            <input
-              type="text"
-              id="foto"
-              name="foto"
-              value={usuario.foto}
-              onChange={atualizarEstado}
-              className="border-2 border-slate-500 rounded-md p-2"
-            />
-          </div>
-
-          <div className="flex flex-col w-full">
             <label htmlFor="tipoUsuario" className="text-slate-600 mb-1 text-left">
               Tipo de Usuário
             </label>
@@ -141,7 +127,7 @@ function Cadastro() {
               value={usuario.tipoUsuario}
               readOnly
               disabled
-              className="border-2 border-slate-500 rounded-md p-2 bg-gray-100 text-gray-500 cursor-not-allowed"
+              className="border-2 border-slate-500 rounded-md p-2 bg-gray-200 text-gray-600 font-extrabold cursor-not-allowed"
             />
           </div>
 
@@ -191,7 +177,7 @@ function Cadastro() {
             <button
               type="submit"
               style={{
-                backgroundColor: "#D7F205",
+                backgroundColor: "#B1C803",
                 outline: "none",
                 border: "none",
               }}

@@ -118,20 +118,6 @@ function Cadastro() {
           </div>
 
           <div className="flex flex-col w-full">
-            <label htmlFor="foto" className="text-slate-600 mb-1 text-left">
-              Foto
-            </label>
-            <input
-              type="text"
-              id="foto"
-              name="foto"
-              value={usuario.foto}
-              onChange={atualizarEstado}
-              className="border-2 border-slate-500 rounded-md p-2"
-            />
-          </div>
-
-          <div className="flex flex-col w-full">
             <label htmlFor="tipoUsuario" className="text-slate-600 mb-1 text-left">
               Tipo de Usuário
             </label>
@@ -142,7 +128,7 @@ function Cadastro() {
               value={usuario.tipoUsuario}
               readOnly
               disabled
-              className="border-2 border-slate-500 rounded-md p-2 bg-gray-100 text-gray-500 cursor-not-allowed"
+              className="border-2 border-slate-500 rounded-md p-2 bg-gray-200 text-gray-600 font-extrabold cursor-not-allowed"
             />
           </div>
 
@@ -183,7 +169,7 @@ function Cadastro() {
                 outline: "none",
                 border: "none",
               }}
-              className="rounded text-white w-1/2 py-2.5 transition-all duration-300 hover:shadow-lg hover:shadow-[#81868C]/50"
+              className="rounded text-white font-bold w-1/2 py-2.5 transition-all duration-300 hover:shadow-lg hover:shadow-[#81868C]/50"
               onClick={retornarLogin}
             >
               Cancelar
@@ -192,11 +178,11 @@ function Cadastro() {
             <button
               type="submit"
               style={{
-                backgroundColor: "#D7F205",
+                backgroundColor: "#B1C803",
                 outline: "none",
                 border: "none",
               }}
-              className="rounded text-white w-1/2 py-2.5 transition-all duration-300 hover:shadow-lg hover:shadow-[#11C5D9]/50 flex justify-center"
+              className="rounded text-white font-bold w-1/2 py-2.5 transition-all duration-300 hover:shadow-lg hover:shadow-[#11C5D9]/50 flex justify-center"
             >
               {isLoading ? "Cadastrando..." : "Cadastrar"}
             </button>

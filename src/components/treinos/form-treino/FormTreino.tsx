@@ -16,7 +16,7 @@ function FormTreino() {
     useEffect(() => {
         if (token === '') {
             alert('Você precisa estar logado');
-            navigate('/');
+            navigate('/login');
         }
     }, [token]);
 
