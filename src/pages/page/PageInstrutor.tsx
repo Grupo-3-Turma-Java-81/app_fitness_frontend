@@ -1,185 +1,156 @@
-import { useState, type FormEvent } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState, type ChangeEvent } from "react";
+
+import type { Treino } from "../../models/Treino";
+import { AuthContext } from "../../contexts/AuthContext";
+import { atualizar, buscar, cadastrar } from "../../services/Service";
 
 function PageInstrutor() {
-    const [nome, setNome] = useState("");
-    const [endereco, setEndereco] = useState("");
-    const [telefone, setTelefone] = useState("");
-    const [peso, setPeso] = useState("");
-    const [altura, setAltura] = useState("");
+    const [treino, setTreino] = useState<Treino>({} as Treino);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const [alunoTreino, setAlunoTreino] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [diaSemana, setDiaSemana] = useState("");
-    const [tipoTreino, setTipoTreino] = useState("");
+    const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>();
+    const { usuario, handleLogout } = useContext(AuthContext);
+    const token = usuario.token;
 
-    const calcularIMC = () => {
-        const alturaM = Number(altura) / 100;
-        const imc = Number(peso) / (alturaM * alturaM);
-        return isNaN(imc) ? "--" : imc.toFixed(2);
-    };
+    useEffect(() => {
+        if (token === '') {
+            alert('Você precisa estar logado');
+            navigate('/login');
+        }
+    }, [token]);
 
-    const classificarIMC = () => {
-        const imc = Number(calcularIMC());
-        if (!imc || isNaN(imc)) return "";
-        if (imc < 18.5) return "ABAIXO DO PESO";
-        if (imc < 25) return "NORMAL";
-        if (imc < 30) return "SOBREPESO";
-        return "OBESIDADE";
-    };
+    useEffect(() => {
+        if (id !== undefined) {
+            buscar(`/treinos/${id}`, setTreino, {
+                headers: { Authorization: token }
+            });
+        }
+    }, [id]);
 
-    const cadastrarAluno = (e: FormEvent) => {
+
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+        setTreino({
+            ...treino,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    async function enviarTreino(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
-        alert("Aluno cadastrado!");
-    };
+        setIsLoading(true);
 
-    const cadastrarTreino = (e: FormEvent) => {
-        e.preventDefault();
-        alert("Treino cadastrado!");
-    };
+        try {
+            if (id !== undefined) {
+                await atualizar("/treinos/atualizar", treino, setTreino, {
+                    headers: { Authorization: token }
+                });
+                alert("Treino atualizado com sucesso!");
+            } else {
+                await cadastrar("/treinos/criar", treino, setTreino, {
+                    headers: { Authorization: token }
+                });
+                alert("Treino cadastrado com sucesso!");
+            }
+            navigate('/lista-treinos');
+        } catch (error: any) {
+            if (error.toString().includes('403')) {
+                handleLogout();
+            } else {
+                alert("Erro ao salvar o treino");
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <div className="p-10 space-y-10">
             <div className="bg-black text-white p-4 flex items-center rounded">
-                <span className="ml-4 font-medium">Olá Treinador</span>
+                <span className="ml-8 font-extrabold text-2xl">Olá treinador</span>
             </div>
 
-            <form
-                onSubmit={cadastrarAluno}
-                className="bg-gray-200 rounded p-6 flex flex-col lg:flex-row justify-between gap-6"
-            >
-
-                <div className="w-full lg:w-2/3 space-y-4">
-                    <h2 className="text-xl font-bold text-black mb-2">
-                        Cadastrar novo aluno
-                    </h2>
-                    
-                    <div className="flex flex-col">
-                        <label className="text-gray-700 mb-1">Nome</label>
-                        <input
-                            value={nome}
-                            onChange={(e) => setNome(e.target.value)}
-                            className="p-2 rounded bg-white"
-                            required
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label className="text-gray-700 mb-1">Endereço</label>
-                        <input
-                            value={endereco}
-                            onChange={(e) => setEndereco(e.target.value)}
-                            className="p-2 rounded bg-white"
-                            required
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label className="text-gray-700 mb-1">Telefone</label>
-                        <input
-                            value={telefone}
-                            onChange={(e) => setTelefone(e.target.value)}
-                            className="p-2 rounded bg-white"
-                            required
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label className="text-gray-700 mb-1">Peso</label>
-                        <input
-                            type="number"
-                            value={peso}
-                            onChange={(e) => setPeso(e.target.value)}
-                            className="p-2 rounded bg-white"
-                            required
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label className="text-gray-700 mb-1">Altura</label>
-                        <input
-                            type="number"
-                            value={altura}
-                            onChange={(e) => setAltura(e.target.value)}
-                            className="p-2 rounded bg-white"
-                            required
-                        />
-                    </div>
-                </div>
-
-                <div className="bg-white p-4 rounded shadow w-full lg:w-1/3 flex flex-col items-center justify-center">
-                    <h3 className="font-semibold text-gray-800 mb-4">Cálculo do IMC</h3>
-                    <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-xl font-bold text-gray-700 mb-2">
-                        {calcularIMC()}
-                    </div>
-                    <p className="text-sm text-gray-600 mb-1">
-                        Aluno {nome || "[nome]"} está em
-                    </p>
-                    <p className="font-bold text-black mb-4">{classificarIMC()}</p>
-                    <button
-                        type="submit"
-                        className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
-                    >
-                        Cadastrar
-                    </button>
-                </div>
-            </form>
-
-            <form
-                onSubmit={cadastrarTreino}
-                className="bg-gray-200 rounded p-6 space-y-4"
-            >
-                <h2 className="text-xl font-bold text-black mb-4">
-                    Preparar um novo treino
+            <div className="bg-gray-200 p-6 rounded space-y-4">
+                <h2 className="text-2xl font-extrabold">
+                    {id ? "Atualizar treino" : "Preparar um novo treino"}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex flex-col">
-                        <label className="text-gray-700 mb-1">Aluno</label>
+
+                <form onSubmit={enviarTreino} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex flex-col md:col-span-2">
+                        <label htmlFor="descricao" className="text-[20px] font-medium text-gray-700">Descrição</label>
                         <input
-                            value={alunoTreino}
-                            onChange={(e) => setAlunoTreino(e.target.value)}
+                            type="text"
+                            name="descricao"
+                            id="descricao"
+                            value={treino.descricao}
+                            onChange={atualizarEstado}
                             className="p-2 rounded bg-white"
                             required
                         />
                     </div>
+
+                    <div className="flex flex-col md:col-span-2">
+                        <label htmlFor="tipoTreino" className="text-[20px] font-medium text-gray-700">Tipo de treino</label>
+                        <input
+                            type="text"
+                            name="tipoTreino"
+                            id="tipoTreino"
+                            value={treino.tipoTreino}
+                            onChange={atualizarEstado}
+                            className="p-2 rounded bg-white"
+                            required
+                        />
+                    </div>
+
                     <div className="flex flex-col">
-                        <label className="text-gray-700 mb-1">Dias da Semana</label>
+                        <label htmlFor="diaSemanaTreino" className="text-[20px] font-medium text-gray-700">Dias da Semana</label>
                         <select
-                            value={diaSemana}
-                            onChange={(e) => setDiaSemana(e.target.value)}
+                            name="diaSemanaTreino"
+                            id="diaSemanaTreino"
+                            value={treino.diaSemanaTreino}
+                            onChange={atualizarEstado}
                             className="p-2 rounded bg-white"
                             required
                         >
                             <option value="">Selecione</option>
-                            <option value="SegundaQuarta">Segunda | Quarta</option>
-                            <option value="TerçaQuinta">Terça | Quinta</option>
-                            <option value="SextaSabado">Sexta | Sábado</option>
+                            <option value="Segunda">Segunda</option>
+                            <option value="Terça">Terça</option>
+                            <option value="Quarta">Quarta</option>
+                            <option value="Quinta">Quinta</option>
+                            <option value="Sexta">Sexta</option>
+                            <option value="Sábado">Sábado</option>
+                            <option value="Domingo">Domingo</option>
                         </select>
                     </div>
-                    <div className="flex flex-col">
-                        <label className="text-gray-700 mb-1">Descrição</label>
-                        <input
-                            value={descricao}
-                            onChange={(e) => setDescricao(e.target.value)}
-                            className="p-2 rounded bg-white"
-                            required
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label className="text-gray-700 mb-1">Tipo de treino</label>
-                        <input
-                            value={tipoTreino}
-                            onChange={(e) => setTipoTreino(e.target.value)}
-                            className="p-2 rounded bg-white"
-                            required
-                        />
-                    </div>
-                </div>
 
-                <div className="mt-4">
-                    <button
-                        type="submit"
-                        className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
-                    >
-                        Feito
-                    </button>
-                </div>
-            </form>
+                    <div className="flex flex-col">
+                        <label htmlFor="status" className="text-[20px] font-medium text-gray-700">Status</label>
+                        <select
+                            name="status"
+                            id="status"
+                            value={treino.status}
+                            onChange={atualizarEstado}
+                            className="p-2 rounded bg-white"
+                            required
+                        >
+                            <option value="">Selecione</option>
+                            <option value="COMPLETO">Completo</option>
+                            <option value="INCOMPLETO">Incompleto</option>
+                        </select>
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <button
+                            type="submit"
+                            disabled={isLoading}
+                            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
+                        >
+                            {isLoading ? "Salvando..." : "Feito"}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

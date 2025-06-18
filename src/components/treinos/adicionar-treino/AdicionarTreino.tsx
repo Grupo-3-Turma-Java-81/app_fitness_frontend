@@ -31,7 +31,7 @@ export default function AdicionarTreino({ treino, onSuccess }: AdicionarTreinoPr
 
         try {
             const alunoAtualizado = { ...aluno, treino }
-            await atualizar('/alunos/atualizar', alunoAtualizado, setAluno, {
+            await atualizar('/atualizar', alunoAtualizado, setAluno, {
                 headers: { Authorization: usuario.token }
             })
             if (onSuccess) onSuccess()

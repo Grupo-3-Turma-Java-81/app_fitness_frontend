@@ -5,18 +5,18 @@ import HomeAluno from "./pages/page/PageAluno";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import SobreNos from "./pages/sobre-nos/SobreNos";
-import FormAluno from "./components/aluno/FormAluno";
+import LoginAluno from "./pages/login/LoginAluno";
 import { AuthProvider } from "./contexts/AuthContext";
+import EscolhaLogin from "./pages/login/EscolhaLogin";
 import HomeInstrutor from "./pages/page/PageInstrutor";
 import Professores from "./pages/professores/Professores";
-import ListarAlunos from "./components/aluno/ListarAluno";
-import FormTreino from "./components/treinos/form-treino/FormTreino";
-import EscolhaLogin from "./pages/login/EscolhaLogin";
 import LoginInstrutor from "./pages/login/LoginInstrutor";
-import LoginAluno from "./pages/login/LoginAluno";
-import CadastroFuncionario from "./pages/cadastro/CadastroFuncionario";
-import CadastroAluno from "./pages/cadastro/CadastroAluno";
+import CadastroAluno from "./pages/cadastro/CadastroUsuarioAluno";
+import ListarAlunos from "./components/aluno/listar-aluno/ListarAluno";
+import DeletarAluno from "./components/aluno/deletar-aluno/DeletarAluno";
+import FormAluno from "./components/aluno/cadastrar-aluno/CadastrarAluno";
 import ListarTreinos from "./components/treinos/listar-treino/ListarTreino";
+import CadastroFuncionario from "./pages/cadastro/CadastroUsuarioFuncionario";
 import DeletarTreino from "./components/treinos/deletar-treino/DeletarTreino";
 
 
@@ -31,7 +31,7 @@ function AppContent() {
         "/cadastro-funcionario"
     ];
 
-const hideNavbar = hideNavbarRoutes.includes(location.pathname);
+    const hideNavbar = hideNavbarRoutes.includes(location.pathname);
 
     return (
         <>
@@ -46,19 +46,20 @@ const hideNavbar = hideNavbarRoutes.includes(location.pathname);
                     <Route path="/cadastro-funcionario" element={< CadastroFuncionario />} />
                     <Route path="/cadastro-aluno" element={< CadastroAluno />} />
 
-
                     <Route path="/page-instrutor" element={< HomeInstrutor />} />
+
                     <Route path="/page-aluno" element={< HomeAluno />} />
-                    <Route path="/form-aluno" element={< FormAluno />} />
-                    <Route path="/form-treino" element={< FormTreino />} />
-                    <Route path="/form-treino/editar/:id" element={< FormTreino />} />
+                    <Route path="/novo-aluno" element={< FormAluno />} />
+                    
+                    <Route path="/editar-treino/:id" element={< HomeInstrutor />} />
+                    <Route path="/editar-aluno/:id" element={< FormAluno />} />
 
-
-                    <Route path="/treinos/deletar/:id" element={< DeletarTreino />} />
+                    <Route path="/deletar-treino/:id" element={< DeletarTreino />} />
+                    <Route path="/deletar-aluno/:id" element={< DeletarAluno />} />
 
                     <Route path="/lista-alunos" element={< ListarAlunos />} />
                     <Route path="/lista-treinos" element={< ListarTreinos />} />
-
+                    <Route path="/outros-treinos" element={< ListarTreinos />} />
 
                 </Routes>
             </div>

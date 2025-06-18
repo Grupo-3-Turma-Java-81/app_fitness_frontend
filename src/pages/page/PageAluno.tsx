@@ -1,8 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
+
 import { buscar } from '../../services/Service';
-import { AuthContext } from '../../contexts/AuthContext';
-import { type Treino } from '../../models/Treino';
 import { type Aluno } from '../../models/Aluno';
+import { type Treino } from '../../models/Treino';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function PageAluno() {
     const [treinos, setTreinos] = useState<Treino[]>([]);
@@ -45,7 +46,7 @@ export default function PageAluno() {
     return (
         <div className="p-6 space-y-8">
             <div className="bg-black text-white flex items-center p-4 rounded">
-                <span className="ml-8 text-2xl font-bold ">Olá aluno</span>
+                <span className="ml-8 text-2xl font-extrabold ">Olá aluno</span>
             </div>
 
             <div className="bg-gray-200 p-6 rounded shadow">
@@ -64,15 +65,17 @@ export default function PageAluno() {
                                     <span className="font-medium text-gray-800">
                                         {treino.descricao || 'Treino sem descrição'}
                                     </span>
+
                                     <button
                                         onClick={() =>
                                             setTreinoAberto(treinoAberto === treino.id ? null : treino.id!)
                                         }
-                                        className="text-xl"
+                                        className="text-2xl transition-transform duration-200"
                                     >
-                                        ↓
+                                        {treinoAberto === treino.id ? '↑' : '↓'}
                                     </button>
                                 </div>
+
 
                                 {treinoAberto === treino.id && (
                                     <div className="bg-white rounded px-6 py-4 shadow border border-gray-300">

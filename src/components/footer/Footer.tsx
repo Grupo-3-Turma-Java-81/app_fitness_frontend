@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import img1 from "../../assets/logo-pulso/logo-pulso-letra-colorida.png"
 
@@ -53,14 +53,23 @@ function Footer() {
                 <div className="w-full md:w-1/4">
                     <p className="font-bold text-sm mb-2">Nossas redes</p>
                     <ul className="space-y-1">
+
                         <li className="hover:text-[#D7F900] cursor-pointer">
-                            <a href="https://www.instagram.com/generationbrasil/p/DHJ98FCvJdo/" target="_blank">
+                            <a
+                                href="https://www.instagram.com/generationbrasil/p/DHJ98FCvJdo/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 Instagram
                             </a>
                         </li>
-                        
+
                         <li className="hover:text-[#D7F900] cursor-pointer">
-                            <a href="https://github.com/Grupo-3-Turma-Java-81" target="_blank">
+                            <a
+                                href="https://github.com/Grupo-3-Turma-Java-81"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 Code³
                             </a>
                         </li>
@@ -71,16 +80,24 @@ function Footer() {
                     <p className="font-bold text-sm mb-2">Links Úteis</p>
                     <ul className="space-y-1">
                         <li className="hover:text-[#D7F900] cursor-pointer">
-                            <a href="/sobre-nos">Sobre Nós</a>
+                            <Link to="/sobre-nos" onClick={() => window.scrollTo(0, 0)}>Sobre Nós</Link>
                         </li>
-                        <li className="hover:text-[#D7F900] cursor-pointer">
-                            <a onClick={irParaPlanos}>Planos</a>
+
+                        <li
+                            className="hover:text-[#D7F900] cursor-pointer"
+                            onClick={irParaPlanos}
+                        >
+                            Planos
                         </li>
+
                         <li className="hover:text-[#D7F900] cursor-pointer">
-                            <a href="/personais-trainers">Personais Trainers</a>
+                            <Link to="/personais-trainers" onClick={() => window.scrollTo(0, 0)}>Personais Trainers</Link>
                         </li>
-                        <li className="hover:text-[#D7F900] cursor-pointer">
-                            <a onClick={irParaUnidades}>Unidades</a>
+                        <li
+                            className="hover:text-[#D7F900] cursor-pointer"
+                            onClick={irParaUnidades}
+                        >
+                            Unidades
                         </li>
                     </ul>
                 </div>
