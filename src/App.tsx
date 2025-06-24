@@ -18,6 +18,8 @@ import FormAluno from "./components/aluno/cadastrar-aluno/CadastrarAluno";
 import ListarTreinos from "./components/treinos/listar-treino/ListarTreino";
 import CadastroFuncionario from "./pages/cadastro/CadastroUsuarioFuncionario";
 import DeletarTreino from "./components/treinos/deletar-treino/DeletarTreino";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 
 function AppContent() {
@@ -71,6 +73,7 @@ function AppContent() {
 function App() {
     return (
         <AuthProvider>
+            <ToastContainer />
             <BrowserRouter>
                 <AppContent />
 

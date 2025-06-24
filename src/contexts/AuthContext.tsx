@@ -3,6 +3,7 @@ import { createContext, useState, type ReactNode } from "react";
 import { buscar, login } from "../services/Service";
 import type UsuarioLogin from "../models/UsuarioLogin";
 import type UsuarioLogado from "../models/UsuarioLogado";
+import { ToastAlerta } from "../utils/ToastAlerta";
 
 interface AuthContextProps {
     usuario: UsuarioLogado;
@@ -34,7 +35,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         try {
             await login("/usuarios/logar", usuarioLogin, setUsuario);
-            alert("Usuário foi autenticado com sucesso!");
+            ToastAlerta("Usuário foi autenticado com sucesso!", "sucesso")
 
             try {
                 await buscar(`/usuarios/${usuarioLogin.usuario}`, setUsuario, {
@@ -48,7 +49,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         } catch (erroLogin) {
             console.error("Erro no login:", erroLogin);
-            alert("Usuário ou senha incorretos!");
+            ToastAlerta("Erro no login:", "erro")
         }
 
         setIsLoading(false);

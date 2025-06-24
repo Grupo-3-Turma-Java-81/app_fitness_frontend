@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { buscar, cadastrar, atualizar } from '../../../services/Service'
 import { type Aluno } from '../../../models/Aluno'
+import { ToastAlerta } from '../../../utils/ToastAlerta'
 
 function FormAluno() {
     const navigate = useNavigate()
@@ -45,7 +46,7 @@ function FormAluno() {
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado');
+            ToastAlerta('Você precisa estar logado', 'info');
             navigate('/login');
         }
     }, [token]);
@@ -72,17 +73,17 @@ function FormAluno() {
                 await atualizar("/alunos/atualizar", alunoParaEnviar, setAluno, {
                     headers: { Authorization: usuario.token }
                 });
-                alert("Aluno atualizado com sucesso!");
+                ToastAlerta("Aluno atualizado com sucesso!", "sucesso");
             } else {
                 await cadastrar("/alunos/criar", alunoParaEnviar, setAluno, {
                     headers: { Authorization: usuario.token }
                 });
-                alert("Aluno cadastrado com sucesso!");
+                ToastAlerta("Aluno criado com sucesso!", "sucesso");
             }
 
             navigate('/lista-alunos')
         } catch (error) {
-            alert('Erro ao salvar o aluno. Verifique os dados.')
+            ToastAlerta("Erro ao salvar o aluno. Verifique os dados.", "erro")
         }
     }
 

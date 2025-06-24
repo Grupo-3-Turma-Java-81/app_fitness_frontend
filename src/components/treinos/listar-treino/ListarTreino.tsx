@@ -4,6 +4,7 @@ import { buscar, atualizar } from '../../../services/Service'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { type Treino } from '../../../models/Treino'
 import { type Aluno } from '../../../models/Aluno'
+import { ToastAlerta } from '../../../utils/ToastAlerta'
 
 export default function ListarTreinos() {
     const [treinos, setTreinos] = useState<Treino[]>([])
@@ -36,7 +37,7 @@ export default function ListarTreinos() {
 
     async function associarTreinoAoAluno(treinoSelecionado: Treino) {
         if (!aluno) {
-            alert('Aluno não encontrado para o usuário logado.')
+            ToastAlerta('Aluno não encontrado para o usuário logado', 'info')
             return
         }
 
@@ -52,7 +53,7 @@ export default function ListarTreinos() {
 
             alert(`Treino "${treinoSelecionado.descricao}" associado ao aluno ${aluno.nome} com sucesso!`)
         } catch (error) {
-            alert('Erro ao associar treino ao aluno.')
+            ToastAlerta("Erro ao associar treino ao aluno!", "erro")
             console.error(error)
         }
     }

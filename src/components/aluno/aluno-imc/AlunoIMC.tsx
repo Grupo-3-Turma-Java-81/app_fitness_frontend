@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import { type Aluno } from '../../../models/Aluno';
 import { buscar } from '../../../services/Service';
 import { AuthContext } from '../../../contexts/AuthContext';
+import { ToastAlerta } from '../../../utils/ToastAlerta';
 
 export default function DetalheAluno() {
 
@@ -17,7 +18,7 @@ export default function DetalheAluno() {
       const alunoDoUsuario = listaAlunos.find(a => a.usuario?.id === usuario.id)
 
       if (!alunoDoUsuario) {
-        setErro('Nenhum aluno vinculado a este usuário.')
+        ToastAlerta('Nenhum aluno vinculado a este usuário.', 'info');
         return
       }
 
@@ -28,7 +29,7 @@ export default function DetalheAluno() {
       headers: { Authorization: usuario.token }
     }).catch(error => {
       console.error(error)
-      setErro('Erro ao buscar dados do aluno.')
+      ToastAlerta("Erro ao buscar dados do aluno.", "erro");
       if (error.toString().includes('403')) handleLogout()
     })
   }, [usuario, handleLogout])

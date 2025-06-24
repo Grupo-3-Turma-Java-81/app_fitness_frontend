@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import img1 from "../../assets/logo-pulso/logo-pulso-letra-cinza.png"
+import { ToastAlerta } from "../../utils/ToastAlerta";
 
 function Navbar() {
     const location = useLocation();
@@ -29,7 +30,7 @@ function Navbar() {
 
     const sair = () => {
         handleLogout()
-        alert('O usuário foi desconectado com sucesso!')
+        ToastAlerta("O usuário foi desconectado com sucesso!", "sucesso")
         localStorage.clear();
         navigate("/");
     };

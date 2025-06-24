@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { buscar, deletar } from '../../../services/Service'
 import type { Aluno } from '../../../models/Aluno'
+import { ToastAlerta } from '../../../utils/ToastAlerta'
 
 function DeletarAluno() {
     const navigate = useNavigate()
@@ -16,7 +17,7 @@ function DeletarAluno() {
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado')
+            ToastAlerta('Você precisa estar logado', 'info')
             navigate('/login')
         }
     }, [token])
@@ -34,13 +35,13 @@ function DeletarAluno() {
             await deletar(`/alunos/deletar/${id}`, {
                 headers: { Authorization: token }
             })
-            alert('Aluno deletado com sucesso')
+            ToastAlerta("Aluno deletado com sucesso!", "sucesso")
             navigate('/lista-alunos')
         } catch (error: any) {
             if (error.toString().includes('403')) {
                 handleLogout()
             } else {
-                alert('Erro ao deletar aluno.')
+                ToastAlerta("Erro ao deletar aluno!", "erro")
             }
         }
     }

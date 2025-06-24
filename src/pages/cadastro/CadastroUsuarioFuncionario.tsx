@@ -6,6 +6,7 @@ import type { Usuario } from "../../models/Usuario";
 import { cadastrarUsuario } from "../../services/Service";
 
 import img1 from "../../assets/logo-pulso/logo-pulso-letra-colorida.png";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 
 function Cadastro() {
   const navigate = useNavigate();
@@ -49,14 +50,14 @@ function Cadastro() {
         const { id, ...usuarioSemId } = usuario;
         await cadastrarUsuario(`/usuarios/cadastrar`, usuarioSemId, setUsuario);
 
-        alert('Usuário cadastrado com sucesso!');
+        ToastAlerta("Usuário cadastrado com sucesso!", "sucesso");
       } catch (error) {
-        alert('Erro ao cadastrar o usuário!');
+        ToastAlerta("Erro ao cadastrar usuario!", "erro");
       }
 
       setIsLoading(false);
     } else {
-      alert('Dados do usuário inconsistentes! Verifique as informações do cadastro.');
+      ToastAlerta('Dados do usuário inconsistentes! Verifique as informações do cadastro.!', 'info');
 
       setUsuario({ ...usuario, senha: '' });
       setConfirmaSenha('');

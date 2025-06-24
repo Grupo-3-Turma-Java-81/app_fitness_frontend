@@ -3,6 +3,7 @@ import { AuthContext } from '../../../contexts/AuthContext'
 import { buscar, atualizar } from '../../../services/Service'
 import { type Treino } from '../../../models/Treino'
 import type { Aluno } from '../../../models/Aluno'
+import { ToastAlerta } from '../../../utils/ToastAlerta'
 
 
 interface AdicionarTreinoProps {
@@ -35,9 +36,9 @@ export default function AdicionarTreino({ treino, onSuccess }: AdicionarTreinoPr
                 headers: { Authorization: usuario.token }
             })
             if (onSuccess) onSuccess()
-            alert('Treino adicionado ao aluno com sucesso!')
+            ToastAlerta("Treino adicionado ao aluno com sucesso!", "sucesso")
         } catch {
-            setError('Erro ao atualizar aluno com o treino')
+            ToastAlerta("Erro ao atualizar o aluno!", "erro")
         } finally {
             setLoading(false)
         }

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { buscar, atualizar, cadastrar } from "../../../services/Service";
 import { type Treino } from "../../../models/Treino";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function FormTreino() {
     const [treino, setTreino] = useState<Treino>({} as Treino);
@@ -15,7 +16,7 @@ function FormTreino() {
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado');
+            ToastAlerta('Você precisa estar logado', 'info');
             navigate('/login');
         }
     }, [token]);
@@ -44,19 +45,19 @@ function FormTreino() {
                 await atualizar("/treinos/atualizar", treino, setTreino, {
                     headers: { Authorization: token }
                 });
-                alert("Treino atualizado com sucesso!");
+                ToastAlerta("Treino atualizado com sucesso!", "sucesso");
             } else {
                 await cadastrar("/treinos/criar", treino, setTreino, {
                     headers: { Authorization: token }
                 });
-                alert("Treino cadastrado com sucesso!");
+               ToastAlerta("Treino cadastrado com sucesso!", "sucesso");
             }
             navigate('/home');
         } catch (error: any) {
             if (error.toString().includes('403')) {
                 handleLogout();
             } else {
-                alert("Erro ao salvar o treino");
+                ToastAlerta("Erro ao salvar o treino!", "erro");
             }
         } finally {
             setIsLoading(false);

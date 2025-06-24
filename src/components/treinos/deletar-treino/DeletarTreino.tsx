@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { buscar, deletar } from '../../../services/Service'
 import { type Treino } from '../../../models/Treino'
+import { ToastAlerta } from '../../../utils/ToastAlerta'
 
 function DeletarTreino() {
     const navigate = useNavigate()
@@ -16,7 +17,7 @@ function DeletarTreino() {
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado')
+            ToastAlerta('Você precisa estar logado!', 'info')
             navigate('/login')
         }
     }, [token])
@@ -34,13 +35,13 @@ function DeletarTreino() {
             await deletar(`/treinos/deletar/${id}`, {
                 headers: { Authorization: token }
             })
-            alert('Treino deletado com sucesso')
+            ToastAlerta("Treino deletado com sucesso!", "sucesso")
             navigate('/lista-treinos')
         } catch (error: any) {
             if (error.toString().includes('403')) {
                 handleLogout()
             } else {
-                alert('Erro ao deletar treino')
+                ToastAlerta("Erro ao deletar treino!", "erro")
             }
         }
     }
