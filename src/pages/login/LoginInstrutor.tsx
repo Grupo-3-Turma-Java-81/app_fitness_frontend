@@ -105,7 +105,7 @@ function LoginInstrutor() {
               outline: "none",
               border: "none",
             }}
-            className="rounded flex justify-center text-white w-1/2 py-2.5 mt-2 transition-all duration-300 hover:shadow-lg hover:shadow-[#11C5D9]/50 focus:outline-none focus:ring-0 active:outline-none"
+            className="rounded flex justify-center text-black w-1/2 py-2.5 mt-2 transition-all duration-300 hover:shadow-lg hover:shadow-[#11C5D9]/50 focus:outline-none focus:ring-0 active:outline-none"
           >
             {isLoading ? (
               <RotatingLines
