@@ -9,7 +9,7 @@ export default function DetalheAluno() {
 
   const { usuario, handleLogout } = useContext(AuthContext)
   const [aluno, setAluno] = useState<Aluno | null>(null)
-  const [erro, setErro] = useState('')
+  const [erro] = useState('')
 
   useEffect(() => {
     if (!usuario.token || !usuario.id) return
