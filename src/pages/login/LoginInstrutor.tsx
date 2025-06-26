@@ -57,16 +57,16 @@ function LoginInstrutor() {
           />
         </div>
       </div>
-      
+
       <div className="flex justify-center items-center min-h-screen">
         <form
           className="flex justify-center items-center flex-col w-full max-w-md px-8 py-6 gap-4 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg"
           onSubmit={login}
         >
-      
+
           <h2 className="text-slate-900 text-5xl font-bold">Entrar</h2>
           <div className="flex flex-col w-full">
-            
+
             <label htmlFor="usuario" className="text-slate-700 mb-1 text-left">
               E-mail
             </label>
@@ -81,7 +81,7 @@ function LoginInstrutor() {
               }
             />
           </div>
-          
+
           <div className="flex flex-col w-full">
             <label htmlFor="senha" className="text-slate-700 mb-1 text-left">
               Senha
@@ -97,7 +97,7 @@ function LoginInstrutor() {
               }
             />
           </div>
-          
+
           <button
             type="submit"
             style={{
@@ -105,7 +105,7 @@ function LoginInstrutor() {
               outline: "none",
               border: "none",
             }}
-            className="rounded flex justify-center text-white w-1/2 py-2.5 mt-2 transition-all duration-300 hover:shadow-lg hover:shadow-[#11C5D9]/50 focus:outline-none focus:ring-0 active:outline-none"
+            className="rounded flex justify-center text-black w-1/2 py-2.5 mt-2 transition-all duration-300 hover:shadow-lg hover:shadow-[#11C5D9]/50 focus:outline-none focus:ring-0 active:outline-none"
           >
             {isLoading ? (
               <RotatingLines
